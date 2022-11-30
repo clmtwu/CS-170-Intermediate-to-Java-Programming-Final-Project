@@ -12,17 +12,17 @@ and be displayed when a button is pressed in your game window.  Documentation re
 
 Hard Requirements (MUST ACCOMPLISH THE FOLLOWING):
 "alphabet-learning program as an educational and attractive game for pre-school or first grade kids."
-GUI - 
-Graphics - 
-Colors - 
-Sounds - 
-Animations/Images - 
-Event Handling - 
-Exception Handling - 
-Layout Managers - 
-file I/O (Figure 1) -
-Player Score Display (Figure 1) -
-Documentation requirements are the same as in your labs.
+(E) GUI - 
+(E) Graphics - 
+(H) Colors - 
+(H) Sounds - 
+(H) Animations/Images - 
+(C) Event Handling - 
+(C) Exception Handling - 
+(E) Layout Managers - 
+(C) file I/O (Figure 1) -
+(C) Player Score Display (Figure 1) -
+(ALL) Documentation requirements are the same as in your labs.
 
 Qualitative Requirements:
 Interactive
@@ -33,4 +33,12 @@ Figure 1:
 A file will store the top 5 player’s names and scores, and be displayed when a button is pressed in your game window
 
 Roles:
-Hengjin - Making up the group project logs
+Hengjin - Graphics, Colors, Sounds, Gao logs
+Clement: Event Handling, Exception Handling, file I/O, main logic
+Eric: Layout Manager, Graphics, GUI, 
+
+Ideas:
+Eric: Audio prompt asking user to pick correct alphabet
+
+Clement: Pairing alphabet in order. Implementation: correct Arraylist with every character in ABC. Comparisons to the selected alphabet character.
+
