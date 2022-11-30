@@ -42,3 +42,4 @@ Eric: Audio prompt asking user to pick correct alphabet
 
 Clement: Pairing alphabet in order. Implementation: correct Arraylist with every character in ABC. Comparisons to the selected alphabet character.
 
+Eric - Will atempt to write some UI on Thursday
