@@ -34,3 +34,4 @@ A file will store the top 5 player’s names and scores, and be displayed when a
 
 Roles:
 Hengjin - Making up the group project logs
+Eric - Will atempt to write some UI on Thursday
