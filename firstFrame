@@ -1,0 +1,78 @@
+package stuff;
+
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+class Frame extends JFrame {
+	
+	public Frame() {
+		setSize(600,400);
+		setLocation(500,0);
+		setTitle("game");
+		
+		setLayout(new GridLayout(3,13));
+		JLabel label1 = new JLabel("cum");
+		add(label1);
+		JButton buttonA = new JButton("A");
+		add(buttonA);
+		JButton buttonB = new JButton("B");
+		add(buttonB);
+		JButton buttonC = new JButton("C");
+		add(buttonC);
+		JButton buttonD = new JButton("D");
+		add(buttonD);
+		JButton buttonE = new JButton("E");
+		add(buttonE);
+		JButton buttonF = new JButton("F");
+		add(buttonF);
+		JButton buttonG = new JButton("G");
+		add(buttonG);
+		JButton buttonH = new JButton("H");
+		add(buttonH);
+		JButton buttonI = new JButton("I");
+		add(buttonI);
+		JButton buttonJ = new JButton("J");
+		add(buttonJ);
+		JButton buttonK = new JButton("K");
+		add(buttonK);
+		JButton buttonL = new JButton("L");
+		add(buttonL);
+		JButton buttonM = new JButton("M");
+		add(buttonM);
+		JButton buttonN = new JButton("N");
+		add(buttonN);
+		JButton buttonO = new JButton("O");
+		add(buttonO);
+		JButton buttonP = new JButton("P");
+		add(buttonP);
+		JButton buttonQ = new JButton("Q");
+		add(buttonQ);
+		JButton buttonR = new JButton("R");
+		add(buttonR);
+		JButton buttonS = new JButton("S");
+		add(buttonS);
+		JButton buttonT = new JButton("T");
+		add(buttonT);
+		JButton buttonU = new JButton("U");
+		add(buttonU);
+		JButton buttonV = new JButton("V");
+		add(buttonV);
+		JButton buttonW = new JButton("W");
+		add(buttonW);
+		JButton buttonX = new JButton("X");
+		add(buttonX);
+		JButton buttonY = new JButton("Y");
+		add(buttonY);
+		JButton buttonZ = new JButton("Z");
+		add(buttonZ);
+		
+		
+		
+		setVisible(true);
+	}
+	public static void main(String[]args) {
+		new Frame();
+	}
+}
