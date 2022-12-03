@@ -1,4 +1,3 @@
-import java.awt.GridLayout;
 import java.util.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,12 +12,6 @@ class Frame extends JFrame {
 	ArrayList<JButton> alphabet = new ArrayList<JButton>(alphabetsize);
 
 	FlowLayout layout = new FlowLayout();
-
-	String introduction = "Welcome to Alphabet Learning App!Please turn your sound on for the best experience!Please select one of the three game modes:";
-	String answer = "Here is the alphabet in order, with sounds";
-
-	JLabel intro = new JLabel(introduction);
-	JLabel ans = new JLabel(answer);
 
 	JButton LM = new JButton("Learning Mode!");
 	JButton FM = new JButton("Fun Mode!");
@@ -54,8 +47,8 @@ class Frame extends JFrame {
 	 **/
 
 	public Frame() {
-		Frame.setSize(600, 400);
-		Frame.setLocation(500, 0);
+		Frame.setSize(800, 800);
+		Frame.setLocation(null);
 		Frame.setTitle("Alphabet Game");
 		Frame.setLayout(layout);
 		Frame.setVisible(true);
@@ -64,17 +57,29 @@ class Frame extends JFrame {
 	}
 
 	public void FramePrompt() {
-		Frame.add(intro);
+		Frame.add(new JLabel("Welcome to Alphabet Learning App!"));
+		Frame.add(new JLabel("Hint: Turn your sound on for the best experience!"));
+		Frame.add(new JLabel("Select one of the three game modes: "));
 		Frame.add(LM);
 		Frame.add(FM);
 		Frame.add(TM);
 	}
 
 	public void LearningMode() {
-		Frame.add(ans);
+		Frame.add(new JLabel("Here is the alphabet in order, with sounds"));
 		for (int i = 0; i < alphabetsize; i++) {
 			Frame.add(alphabet.get(i));
 		}
+		// TODO: sounds
+	}
+
+	public void FunMode() {
+		Frame.add(new JLabel("Order the alphabet backwards!"));
+	}
+
+	public void MatchingMode() {
+		Frame.add(new JLabel("Order the alphabet in order!"));
+		randomizealphabet();
 	}
 
 	public void clear() {
