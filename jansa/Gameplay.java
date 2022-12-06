@@ -1,5 +1,3 @@
-package stuff;
-
 import java.util.*;
 
 public class Gameplay {

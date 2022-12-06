@@ -1,5 +1,3 @@
-package stuff;
-
 import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
