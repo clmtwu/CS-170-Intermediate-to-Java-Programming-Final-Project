@@ -1,16 +1,11 @@
 import javax.swing.*;
 import java.awt.FlowLayout;
 import java.util.Random;
-import javax.swing.*;
-import java.awt.event.*; //importing awt for customization
 import java.util.ArrayList;
-import java.awt.Color;
-import javax.swing.JLabel;
 import javax.swing.JFrame;
-import java.awt.FlowLayout;
 import java.awt.Dimension;
 import javax.swing.border.EmptyBorder;
-public class MatchingMode  {
+public class MatchingMode extends Alphabet {
 
     JFrame MMFrame = new JFrame();
 
