@@ -14,7 +14,7 @@ public class LearningMode {
     JButton LMConfirm = new JButton ("Okay, I got it!");
     JButton LMRepeat = new JButton ("Please repeat one more time!");
 
-    JLabel LMPrompt = new JLabel ("Here is the alphabet in order, with sound!", SwingConstants.CENTER);
+    JLabel LMPrompt = new JLabel ("Here is the alphabet in order!", SwingConstants.CENTER);
 
     final static int alphabetsize = 26;
     final static int titlefont = 25;
@@ -26,9 +26,7 @@ public class LearningMode {
 	FlowLayout FrameLayout = new FlowLayout(FlowLayout.CENTER);
     FlowLayout LMFrameLayout = new FlowLayout(FlowLayout.CENTER); 
 
-    Dimension JButtonSize = new Dimension (200, 100);
-    Dimension LongJButtonSize = new Dimension (250, 100);
-    Dimension MainPicture = new Dimension (300, 300);
+    Dimension LongJButtonSize = new Dimension (300, 100);
 
     EmptyBorder TitleBorder = new EmptyBorder (50, 300, 50, 300);
     EmptyBorder RegularTextBorder = new EmptyBorder (15, 200, 15, 200);
@@ -37,19 +35,31 @@ public class LearningMode {
         LMFrame.setSize(1000, 1000); 
         LMFrame.setTitle("Learning Mode - Alphabet Game");
         LMFrame.setLayout(LMFrameLayout);
+        LMFrame.setResizable(false);
+
         LMFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
         LMConfirm.setForeground(Color.GREEN);
         LMRepeat.setForeground(Color.RED);
-        LMConfirm.setPreferredSize(JButtonSize);
+
+        LMConfirm.setPreferredSize(LongJButtonSize);
         LMRepeat.setPreferredSize(LongJButtonSize);
-        LMConfirm.setBorder(RegularTextBorder);
+
+        LMConfirm.setBorder(TitleBorder);
         LMPrompt.setBorder(TitleBorder);
+
+        for (char i = 65; i <= 90; i++) {
+			String temp = Character.toString(i);
+			alphabet.add(new JButton(temp));
+		}
     }
 
     public LearningMode() {
         setup();
         LMFrame.setVisible(true);
 		LMFrame.add(LMPrompt);
+        for (int i = 0; i < parent.size(); i++) {
+            LMFrame.add(alphabet.get(i));
+        }
         LMFrame.add(LMConfirm);
         LMFrame.add(LMRepeat);
         LMConfirm.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
@@ -61,17 +71,14 @@ public class LearningMode {
         });
         LMRepeat.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
             public void actionPerformed(ActionEvent e){ //method of execution
+                LMFrame.setVisible(false); //you can't see me!
+                LMFrame.dispose(); //Destroy the JFrame object
                 new LearningMode();
             }
         });
     }
 
-    
-
-    public void actionPerformed(ActionEvent e) {
-        for (char i = 65; i <= 90; i++) {
-			String temp = Character.toString(i);
-			alphabet.add(new JButton(temp));
-		}
+    public static void main(String[] args) {
+        new LearningMode();
     }
 }

@@ -73,6 +73,9 @@ public class Frame extends JFrame implements ActionListener {
         FP3.setBorder(TitleBorder);
         FP4.setBorder(RegularTextBorder);
 
+        Frame.setResizable(false);
+        Frame.setLocationRelativeTo(null);
+
         for (int i = 0; i < alphabetsize; i++) { //initializing reference array before program begins running
 			parent.add(i);
 		}
