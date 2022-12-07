@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-
 public class Frame extends JFrame implements ActionListener {
 	JFrame Frame = new JFrame();
     
