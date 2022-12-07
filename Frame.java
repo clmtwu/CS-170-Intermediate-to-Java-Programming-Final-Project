@@ -29,8 +29,6 @@ public class Frame extends JFrame implements ActionListener {
     JButton EXIT = new JButton ("Exit the program!");
     JButton LEADERBOARD = new JButton ("Show Leaderboard!");
 
-
-
     Dimension JButtonSize = new Dimension (200, 100);
     Dimension LongJButtonSize = new Dimension (250, 100);
     Dimension MainPicture = new Dimension (300, 300);
@@ -39,8 +37,6 @@ public class Frame extends JFrame implements ActionListener {
     JLabel FP2 = new JLabel("Turn your sound on for the best experience!", SwingConstants.CENTER);
     JLabel FP3 = new JLabel("Choose one game mode: ", SwingConstants.CENTER);
     JLabel FP4 = new JLabel("Or choose a system option:", SwingConstants.CENTER);
-
-
 
     EmptyBorder TitleBorder = new EmptyBorder (50, 300, 50, 300);
     EmptyBorder RegularTextBorder = new EmptyBorder (15, 200, 15, 200);
@@ -97,17 +93,21 @@ public class Frame extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e){ //method of execution
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
-                LearningMode();
+                new LearningMode();
             }
         });
         FM.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
             public void actionPerformed(ActionEvent e){ //method of execution
-                FunMode();
+                Frame.setVisible(false); //you can't see me!
+                Frame.dispose(); //Destroy the JFrame object
+                new FunMode();
             }
         });
         MM.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
             public void actionPerformed(ActionEvent e){ //method of execution
-                MatchingMode();
+                Frame.setVisible(false); //you can't see me!
+                Frame.dispose(); //Destroy the JFrame object
+                new MatchingMode();
             }
         });
         EXIT.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
@@ -117,28 +117,12 @@ public class Frame extends JFrame implements ActionListener {
         });
         LEADERBOARD.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
             public void actionPerformed(ActionEvent e){ //method of execution
-                Leaderboard();
+                Frame.setVisible(false); //you can't see me!
+                Frame.dispose(); //Destroy the JFrame object
+                new Scoreboard();
             }
         });
 	}
-
-	public void LearningMode() {
-        new LearningMode();
-	}
-
-
-    public void Leaderboard() {
-
-    }
-
-	public void FunMode() {
-        new FunMode();
-	}
-
-	public void MatchingMode() {
-        new MatchingMode();
-	}
-
 
     public void actionPerformed(ActionEvent e) {
         for (char i = 65; i <= 90; i++) {
