@@ -1,3 +1,4 @@
+package stuff;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
@@ -174,4 +175,3 @@ public class Frame extends JFrame implements ActionListener {
 		}
     }
 }
-//bruh
