@@ -56,11 +56,10 @@ public class Frame extends JFrame implements ActionListener {
 		try {
 			sound.RunMusic("sound\\MenuMusic.wav");
 		} catch (LineUnavailableException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	
 	}
+
     public void setUp() { //initializing buttons and labels to specific text type, color, and size
         Frame.setSize(800, 800);
         Frame.setTitle("Alphabet Game");
@@ -106,13 +105,10 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new LearningMode();
-               
                 sound.stop();
-                
                 try {
     				sound.RunMusic("sound\\Recording.wav");
     			} catch (LineUnavailableException e1) {
-    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
             }
@@ -122,12 +118,10 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new FunMode();
-                
                 try {
                 	
     				sound.RunMusic("sound\\FunModeMusic.wav");
     			} catch (LineUnavailableException e1) {
-    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
             }
@@ -137,14 +131,11 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new MatchingMode();
-                
                 try {
 					sound.main(null);
 				} catch (LineUnavailableException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-                
             }
         });
         EXIT.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
@@ -156,11 +147,9 @@ public class Frame extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e){ //method of execution
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
- 
                 try {
     				sound.RunMusic("sound\\LeaderboardMusic.wav");
     			} catch (LineUnavailableException e1) {
-    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
             }
