@@ -1,3 +1,6 @@
+package stuff;
+
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.event.*; //importing awt for customization
 import java.awt.FlowLayout;
@@ -8,6 +11,7 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 
 public class Frame extends JFrame implements ActionListener {
 	JFrame Frame = new JFrame();
@@ -73,9 +77,6 @@ public class Frame extends JFrame implements ActionListener {
         FP3.setBorder(TitleBorder);
         FP4.setBorder(RegularTextBorder);
 
-        Frame.setResizable(false);
-        Frame.setLocationRelativeTo(null);
-
         for (int i = 0; i < alphabetsize; i++) { //initializing reference array before program begins running
 			parent.add(i);
 		}
@@ -96,6 +97,12 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new LearningMode();
+              try {
+				sound.RunMusic("sound\\Song.wav");
+			} catch (LineUnavailableException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             }
         });
         FM.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
