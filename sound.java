@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
 
@@ -29,14 +30,12 @@ public class sound {
 
 
 	public static void RunMusic(String path) throws LineUnavailableException {
-	
-		
-		
 		try {
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
 			Clip clip = AudioSystem.getClip();
 			clip.open(inputStream);
 			clip.loop(0);
+			clip.start();
 		} catch (UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -45,7 +44,10 @@ public class sound {
 		}
 
 	}
-
+	public static void stopMusic(){
+		
+	}
+	
 	public static void main (String[] args) throws LineUnavailableException {
 		
 		File file = new File("windows10.wav");
@@ -66,7 +68,4 @@ public class sound {
 		
 		
 	}
-	
-	
-	
 }
