@@ -143,7 +143,7 @@ public class Alphabet {
 
     public static void ReversedInt() {
         int tempcounter = 0;
-        for (int i = 25; i >= 1; i--) {
+        for (int i = 25; i >= 0; i--) {
             answer[tempcounter] = i;
             tempcounter++;
         }

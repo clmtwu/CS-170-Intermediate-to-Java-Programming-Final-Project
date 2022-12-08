@@ -106,5 +106,4 @@ public class Scores extends Alphabet {
             System.out.println("Could not find file! Make a new Scoreboard!");
         } 
     }
-
 }
