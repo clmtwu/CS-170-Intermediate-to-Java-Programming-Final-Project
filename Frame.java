@@ -1,14 +1,10 @@
 
-import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.event.*; //importing awt for customization
-import java.io.File;
-import java.io.IOException;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -141,7 +137,13 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.dispose(); //Destroy the JFrame object
                 new MatchingMode();
                 
-                try {       
+                try {
+					sound.main(null);
+				} catch (LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                
             }
         });
         EXIT.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
