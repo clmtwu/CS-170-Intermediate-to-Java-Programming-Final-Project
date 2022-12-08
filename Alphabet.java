@@ -42,8 +42,11 @@ public class Alphabet {
     final static int titlefont = 25;
     final static int bodyfont = 15;
 
+    static ArrayList<String> answerS = new ArrayList<String>(Arrays.asList("a", "b ", "c", "d", "e", "f", "g", "h", "i", "j",
+            "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+
 	static Integer[] reference = new Integer[alphabetsize];
-    static Integer[] answer = new Integer[alphabetsize];
+    static Integer[] answer = new Integer[alphabetsize + 1];
 
     static ArrayList<JButton> checkanswer = new ArrayList<JButton>(alphabetsize);
 	static ArrayList<JButton> alphabet = new ArrayList<JButton>(alphabetsize);

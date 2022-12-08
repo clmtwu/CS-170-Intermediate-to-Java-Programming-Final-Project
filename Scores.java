@@ -4,13 +4,14 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class Scores extends Alphabet {
-    static private int combo = 0;
+	static private int combo = 0;
 	static private int highestcombo = 0;
 	static private double accuracy = 0;
 	static private double score = 0;
 	static private String difficulty = "";
 
 	static private int correct = 0;
+	static private int answerindex = 0;
 	static final private int alphabetsize = 26;
 
 	final private double accuracy_portion = 0.3;
@@ -26,51 +27,47 @@ public class Scores extends Alphabet {
 		Scores.difficulty = difficulty;
 		Scores.accuracy = accuracy;
 		Scores.score = score;
-		combo = highestcombo;
+		Scores.highestcombo = highestcombo;
 		ScoreboardArray.add(this);
 	}
 
 	public static void check (JButton i, int j) {
-		System.out.println("here");
-		if (checkanswer.size() == alphabetsize) {
-			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
-			return;
-		}
-        if (checkanswer.size() == 0) {
-            if (i == A) {
-				addCorrect();
-				MatchingMode.removebutton(i);
-            }
-			else {
-				JOptionPane.showMessageDialog(null, "So Close! The right answer was " + alphabet.get(j).getName()); //prompt to correct error
-				MatchingMode.removebutton(i);
-				return;
-			}
-        }
-		if (i != alphabet.get(j)) {
-			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + alphabet.get(j).getName()); //prompt to correct error
-			MatchingMode.removebutton(i);
-			combo = 0;
-			return;
-		}
 		checkanswer.add(i);
-		addCorrect();
+		if (j != answer[answerindex]) {
+			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerS.get(answerindex).toUpperCase() + "!"); //prompt to correct error
+			checkanswer.remove(i);
+			miss();
+			return;
+		}
+		correct++;
+		combo++;
+		if (combo > highestcombo) {
+			highestcombo = combo;
+		}
+		System.out.println(highestcombo);
 		MatchingMode.removebutton(i);
+		answerindex++;
+		System.out.println(combo);
+		if (answerindex == 26) {
+			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
+			MatchingMode.clear();
+			return;
+		}
     }
 
-    public int getCombo() {
-		return combo;
+    public static int getCombo() {
+		return highestcombo;
 	}
 
     public String getDifficulty() {
         return difficulty;
     }
 
-    public double getAccuracy() {
+    public static double getAccuracy() {
 		return accuracy;
 	}
 
-	public double getScore() {
+	public static double getScore() {
 		return score;
 	}
 
@@ -78,19 +75,8 @@ public class Scores extends Alphabet {
 		Scores.difficulty = difficulty;
 	}
 
-	public static void addCorrect() {
-		correct++;
-		combo++;
-	}
 
-	public void miss() {
-		if (highestcombo == 0) {
-			highestcombo = combo;
-		}
-
-		if (combo >= highestcombo) {
-			highestcombo = combo;
-		}
+	public static void miss() {
 		combo = 0;
 	}
 
