@@ -1,7 +1,8 @@
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.event.*; //importing awt for customization
-import java.io.IOException;
+import java.io.File;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,8 +15,7 @@ import javax.swing.JLabel;
 public class Frame extends JFrame implements ActionListener {
 	
 	JFrame Frame = new JFrame();
-	
-	
+			
 	final static int alphabetsize = 26;
     final static int titlefont = 25;
     final static int bodyfont = 15;
@@ -57,6 +57,7 @@ public class Frame extends JFrame implements ActionListener {
 		try {
 			sound.RunMusic("sound\\MenuMusic.wav");
 		} catch (LineUnavailableException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	
@@ -89,7 +90,7 @@ public class Frame extends JFrame implements ActionListener {
         for (int i = 0; i < alphabetsize; i++) { //initializing reference array before program begins running
 			parent.add(i);
 		}
-    } 
+    }
 
 	public void FramePrompt() {
 		Frame.add(FP1, BorderLayout.CENTER);
@@ -106,10 +107,13 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new LearningMode();
+               
+                sound.stop();
                 
                 try {
     				sound.RunMusic("sound\\Recording.wav");
     			} catch (LineUnavailableException e1) {
+    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
             }
@@ -124,6 +128,7 @@ public class Frame extends JFrame implements ActionListener {
                 	
     				sound.RunMusic("sound\\FunModeMusic.wav");
     			} catch (LineUnavailableException e1) {
+    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
             }
@@ -137,6 +142,7 @@ public class Frame extends JFrame implements ActionListener {
                 try {
 					sound.main(null);
 				} catch (LineUnavailableException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
                 
@@ -151,15 +157,12 @@ public class Frame extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e){ //method of execution
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
-                try {
-                    Scores.writeScoreboard();
-                } catch (IOException e2) {
-                    e2.printStackTrace();
-                }
+                new Scoreboard();
  
                 try {
     				sound.RunMusic("sound\\LeaderboardMusic.wav");
     			} catch (LineUnavailableException e1) {
+    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
             }
