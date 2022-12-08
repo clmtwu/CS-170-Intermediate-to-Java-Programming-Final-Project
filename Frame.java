@@ -1,6 +1,7 @@
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.event.*; //importing awt for customization
+import java.io.IOException;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -150,7 +151,11 @@ public class Frame extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e){ //method of execution
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
-                new Scoreboard();
+                try {
+                    Scores.writeScoreboard();
+                } catch (IOException e2) {
+                    e2.printStackTrace();
+                }
  
                 try {
     				sound.RunMusic("sound\\LeaderboardMusic.wav");
