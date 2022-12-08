@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class Scores extends Alphabet {
     static private int combo = 0;
@@ -10,7 +11,7 @@ public class Scores extends Alphabet {
 	static private String difficulty = "";
 
 	static private int correct = 0;
-	final private int alphabetsize = 26;
+	static final private int alphabetsize = 26;
 
 	final private double accuracy_portion = 0.3;
 	final private double combo_portion = 0.7;
@@ -30,6 +31,10 @@ public class Scores extends Alphabet {
 	}
 
 	public static void check (JButton i, int j) {
+		if (checkanswer.size() == alphabetsize) {
+			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
+			return;
+		}
         checkanswer.add(i);
         if (checkanswer.size() == 0) {
             if (i == A) {
@@ -37,10 +42,12 @@ public class Scores extends Alphabet {
             }
         }
 		if (i != alphabet.get(j)) {
-			checkanswer.clear();
+			checkanswer.remove(i);
+			checkanswer.add(alphabet.get(j));
+			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + alphabet.get(j).getName()); //prompt to correct error
+			MatchingMode.removebutton (i);
+			combo = 0;
 		}
-        
-        
     }
 
     public int getCombo() {
@@ -59,7 +66,7 @@ public class Scores extends Alphabet {
 		return score;
 	}
 
-	public void setDifficulty(String difficulty) {
+	public static void setDifficulty(String difficulty) {
 		Scores.difficulty = difficulty;
 	}
 
@@ -81,10 +88,11 @@ public class Scores extends Alphabet {
 
 	public void calculateAccuracy() {
 		if (correct == 0) {
-			System.out.println("correct is 0");
-			return;
+			accuracy = 0;
 		}
-		accuracy = correct / alphabetsize;
+		else {
+			accuracy = correct / alphabetsize;
+		}
 	}
 
 	public void calculateScore() {

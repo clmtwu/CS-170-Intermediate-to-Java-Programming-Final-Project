@@ -11,9 +11,8 @@ public class LearningMode extends Alphabet {
     JFrame AlphabetPrint = new JFrame();
 
     JButton LMConfirm = new JButton ("Okay, I got it!");
-    JButton LMRepeat = new JButton ("Please repeat one more time!"); //this one is correct
 
-    JLabel LMPrompt = new JLabel ("Here is the alphabet in order!", SwingConstants.CENTER);
+    JLabel LMPrompt = new JLabel ("Here is the alphabet in order from top to bottom!", SwingConstants.CENTER);
 
     public void setup() {
         LMFrame.setSize(300, 300); 
@@ -29,12 +28,12 @@ public class LearningMode extends Alphabet {
         AlphabetPrint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
 
         LMConfirm.setForeground(Color.GREEN);
-        LMRepeat.setForeground(Color.RED);
 
         LMPrompt.setBorder(TitleBorder);
 
         LMConfirm.setPreferredSize(StandardJButtonSize);
-        LMRepeat.setPreferredSize(StandardJButtonSize);
+
+        Alphabet.setUpAlphabet();
     }
 
     public LearningMode() {
@@ -53,14 +52,6 @@ public class LearningMode extends Alphabet {
                 new Frame();
             }
         });
-        LMRepeat.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
-            public void actionPerformed(ActionEvent e){ //method of execution
-                LMFrame.setVisible(false); //you can't see me!
-                LMFrame.dispose(); //Destroy the JFrame object
-                new LearningMode();
-            }
-        });
-        
     }
 
     public void printAlphabetinOrder() {

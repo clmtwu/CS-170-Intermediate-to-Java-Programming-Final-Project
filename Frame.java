@@ -1,5 +1,3 @@
-package stuff;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.event.*; //importing awt for customization
@@ -97,12 +95,16 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new LearningMode();
-              try {
+                new Audio();
+                /**
+                 * try {
 				sound.RunMusic("sound\\Song.wav");
 			} catch (LineUnavailableException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+                 */
+              
             }
         });
         FM.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
