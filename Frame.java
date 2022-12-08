@@ -1,19 +1,26 @@
+
+import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.event.*; //importing awt for customization
+import java.io.File;
+import java.io.IOException;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-
 public class Frame extends JFrame implements ActionListener {
+	
 	JFrame Frame = new JFrame();
-    
+	
+	
 	final static int alphabetsize = 26;
     final static int titlefont = 25;
     final static int bodyfont = 15;
@@ -49,14 +56,24 @@ public class Frame extends JFrame implements ActionListener {
 		setUp();
 		Frame.setVisible(true);
 		FramePrompt();
+		LM.setForeground(Color.MAGENTA);	
+		FM.setForeground(Color.CYAN);
+		MM.setForeground(Color.blue);
+		try {
+			sound.RunMusic("sound\\MenuMusic.wav");
+		} catch (LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
 	}
-
     public void setUp() { //initializing buttons and labels to specific text type, color, and size
         Frame.setSize(800, 800);
         Frame.setTitle("Alphabet Game");
         Frame.setLayout(FrameLayout);
         Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
-
+        Frame.setBackground(Color.GRAY);
+        
         FP1.setFont(CSMTitle);
         FP2.setFont(CSMBody);
         FP3.setFont(CSMBody);
@@ -95,16 +112,13 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new LearningMode();
-                new Audio();
-                /**
-                 * try {
-				sound.RunMusic("sound\\Song.wav");
-			} catch (LineUnavailableException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-                 */
-              
+                
+                try {
+    				sound.RunMusic("sound\\Recording.wav");
+    			} catch (LineUnavailableException e1) {
+    				// TODO Auto-generated catch block
+    				e1.printStackTrace();
+    			}
             }
         });
         FM.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
@@ -112,6 +126,14 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new FunMode();
+                
+                try {
+                	
+    				sound.RunMusic("sound\\FunModeMusic.wav");
+    			} catch (LineUnavailableException e1) {
+    				// TODO Auto-generated catch block
+    				e1.printStackTrace();
+    			}
             }
         });
         MM.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
@@ -119,11 +141,13 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new MatchingMode();
+                
+                try {       
             }
         });
         EXIT.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
             public void actionPerformed(ActionEvent e){ //method of execution
-                System.exit(0);
+                System.exit(0);        
             }
         });
         LEADERBOARD.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
@@ -131,6 +155,13 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new Scoreboard();
+ 
+                try {
+    				sound.RunMusic("sound\\LeaderboardMusic.wav");
+    			} catch (LineUnavailableException e1) {
+    				// TODO Auto-generated catch block
+    				e1.printStackTrace();
+    			}
             }
         });
 	}
