@@ -31,23 +31,31 @@ public class Scores extends Alphabet {
 	}
 
 	public static void check (JButton i, int j) {
+		System.out.println("here");
 		if (checkanswer.size() == alphabetsize) {
 			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
 			return;
 		}
-        checkanswer.add(i);
         if (checkanswer.size() == 0) {
             if (i == A) {
 				addCorrect();
+				MatchingMode.removebutton(i);
             }
+			else {
+				JOptionPane.showMessageDialog(null, "So Close! The right answer was " + alphabet.get(j).getName()); //prompt to correct error
+				MatchingMode.removebutton(i);
+				return;
+			}
         }
 		if (i != alphabet.get(j)) {
-			checkanswer.remove(i);
-			checkanswer.add(alphabet.get(j));
 			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + alphabet.get(j).getName()); //prompt to correct error
-			MatchingMode.removebutton (i);
+			MatchingMode.removebutton(i);
 			combo = 0;
+			return;
 		}
+		checkanswer.add(i);
+		addCorrect();
+		MatchingMode.removebutton(i);
     }
 
     public int getCombo() {

@@ -32,8 +32,8 @@ public class MatchingMode extends Alphabet {
         AlphabetPrint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
 
 		MMPrompt.setBorder(TitleBorder);
-		Alphabet.setUpAlphabet();
 		Alphabet.setAnswers();
+		Alphabet.setUpAlphabet();
 		Alphabet.RandomInt();
 	}
 
