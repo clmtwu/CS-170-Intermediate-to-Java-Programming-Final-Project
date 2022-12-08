@@ -10,22 +10,17 @@ public class FunMode extends Alphabet {
 	static JFrame AlphabetPrint = new JFrame();
 	static JFrame ResultFrame = new JFrame();
 
-    static private int combo = 0;
-	static private int highestcombo = 0;
-	static private double accuracy = 0;
-	static private double score = 0;
 	static private String difficulty = "Fun Mode";
-
+    static private String name = "";
 	static private int correct = 0;
+
 	static final private int alphabetsize = 26;
     static private int answerindex = 0;
-    static private String name = "";
+    
 
 	private static JLabel FMPrompt = new JLabel ("Arrange the Alphabet... but Backwards!", SwingConstants.CENTER);
 
-	static JLabel FMCombo = new JLabel ("Your highest combo: " + combo);
-	static JLabel FMAccuracy = new JLabel ("Your accuracy: " + accuracy);
-	static JLabel FMScore = new JLabel ("Your score was: " + score);
+	static JLabel FMScore = new JLabel ("Your score was: " + correct);
 
 	static JButton Confirm = new JButton ("Return to home screen!");
 	static JButton Replay = new JButton ("Play Again!");
@@ -35,7 +30,7 @@ public class FunMode extends Alphabet {
 		setUp();
 		FMFrame.add(FMPrompt, BorderLayout.CENTER);
 		FMFrame.setVisible(true);
-		randomizealphabet();
+		GameplayWindow();
 	}
 
 	public void setUp() {
@@ -69,7 +64,7 @@ public class FunMode extends Alphabet {
 		Alphabet.RandomInt();
 	}
 
-    public void randomizealphabet() {
+    public void GameplayWindow() {
 		AlphabetPrint.setLayout(new GridLayout(alphabet.size(), 1));
 		for (int i = 0; i < alphabetsize; i++) {
 			AlphabetPrint.add(alphabet.get(reference[i]));
@@ -86,8 +81,6 @@ public class FunMode extends Alphabet {
 	}
 
 	public static void displayresults() {
-		ResultFrame.add(FMCombo);
-		ResultFrame.add(FMAccuracy);
 		ResultFrame.add(FMScore);
 		ResultFrame.add(Confirm);
 		ResultFrame.add(Replay);
@@ -99,7 +92,6 @@ public class FunMode extends Alphabet {
 		if (j != answer[answerindex]) {
 			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerS.get(answerindex).toUpperCase() + "!"); //prompt to correct error
 			checkanswer.remove(i);
-			combo = 0;
 			return;
 		}
 		correct++;
@@ -107,7 +99,7 @@ public class FunMode extends Alphabet {
 		answerindex++;
 		if (answerindex == 26) {
 			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
-			FunMode.clear();
+            clear();
 			return;
 		}
     }
