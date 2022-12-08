@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*; //importing awt for customization
+import java.util.Arrays;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
@@ -49,6 +50,10 @@ public class LearningMode extends Alphabet {
                 AlphabetPrint.dispose();
                 LMFrame.setVisible(false); //you can't see me!
                 LMFrame.dispose(); //Destroy the JFrame object
+                Arrays.fill(reference, null);
+                Arrays.fill(answer, null);
+                checkanswer.clear();
+                alphabet.clear();
                 new Frame();
             }
         });

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class FunMode extends Alphabet {
     static JFrame FMFrame = new JFrame();
@@ -90,6 +91,10 @@ public class FunMode extends Alphabet {
             new Scores(name, difficulty, correct);
             ResultFrame.setVisible(false); //you can't see me!
 			ResultFrame.dispose(); //Destroy the JFrame object
+            Arrays.fill(reference, null);
+            Arrays.fill(answer, null);
+            checkanswer.clear();
+            alphabet.clear();
 			new Frame();
 		}
     }
