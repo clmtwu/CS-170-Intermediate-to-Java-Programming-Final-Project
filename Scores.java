@@ -7,76 +7,36 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Scores extends Alphabet {
-	static private int combo = 0;
-	static private int highestcombo = 0;
-	static private double accuracy = 0;
-	static private double score = 0;
-	static private String difficulty = "";
+    private int combo = 0;
+	private int highestcombo = 0;
+	private double accuracy = 0;
+	private double score = 0;
+	private String name = "";
 
-	static private int correct = 0;
-
-	static final private int alphabetsize = 26;
-
-	final private double accuracy_portion = 0.3;
-	final private double combo_portion = 0.7;
 
 	static  ArrayList<Scores> ScoreboardArray = new ArrayList<Scores>();
 
 
-    public Scores(String difficulty, double accuracy, double score, int highestcombo) {
-		Scores.difficulty = difficulty;
-		Scores.accuracy = accuracy;
-		Scores.score = score;
-		Scores.highestcombo = highestcombo;
+    public Scores(String name, double accuracy, double score, int highestcombo) {
+		this.name = name;
+		this.accuracy = accuracy;
+		this.score = score;
+		this.highestcombo = highestcombo;
 		ScoreboardArray.add(this);
 	}
 
-    public static int getCombo() {
-		return highestcombo;
-	}
-
-    public String getDifficulty() {
-        return difficulty;
-    }
-
-    public static double getAccuracy() {
-		return accuracy;
-	}
-
-	public static double getScore() {
-		return score;
-	}
-
-	public static void setDifficulty(String difficulty) {
-		Scores.difficulty = difficulty;
-	}
-
-
-	public static void miss() {
-		combo = 0;
-	}
-
-	public void calculateAccuracy() {
-		if (correct == 0) {
-			accuracy = 0;
-		}
-		else {
-			accuracy = correct / alphabetsize;
-		}
-	}
-
 	public void calculateScore() {
-		score = 1000000 * ((accuracy * accuracy_portion) + (combo / alphabetsize * combo_portion));
+		score = combo;
 	}
 
 	//TODO: here
 
-	public static void writeScoreboard() throws IOException {
+	public void writeScoreboard() throws IOException {
         String ScoreS = "" + score;
         String ComboS = "" + combo;
         String AccuracyS = "" + accuracy;
         BufferedWriter writer = new BufferedWriter(new FileWriter("Scoreboard.txt"));
-		writer.write(difficulty);
+		writer.write(name);
         writer.newLine();
         writer.write(ScoreS);
         writer.newLine();
@@ -93,7 +53,7 @@ public class Scores extends Alphabet {
         String ComboS = "" + combo;
         String AccuracyS = "" + accuracy;
         BufferedWriter writer = new BufferedWriter(new FileWriter("Scoreboard.txt", true));
-		writer.write(difficulty);
+		writer.write(name);
         writer.newLine();
         writer.write(ScoreS);
         writer.newLine();
@@ -105,7 +65,7 @@ public class Scores extends Alphabet {
         writer.close();
     }
 
-    public void readScoreboard() {
+    public static void readScoreboard() {
         try {
             File Scoreboard = new File ("Scoreboard.txt");
             Scanner ScoreboardReader = new Scanner (Scoreboard);

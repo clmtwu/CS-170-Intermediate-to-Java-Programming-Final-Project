@@ -10,15 +10,22 @@ public class FunMode extends Alphabet {
 	static JFrame AlphabetPrint = new JFrame();
 	static JFrame ResultFrame = new JFrame();
 
+    static private int combo = 0;
+	static private int highestcombo = 0;
+	static private double accuracy = 0;
+	static private double score = 0;
+	static private String difficulty = "Fun Mode";
+
+	static private int correct = 0;
+	static final private int alphabetsize = 26;
     static private int answerindex = 0;
-    static private int correct = 0;
     static private String name = "";
 
 	private static JLabel FMPrompt = new JLabel ("Arrange the Alphabet... but Backwards!", SwingConstants.CENTER);
 
-	static JLabel FMCombo = new JLabel ("Your highest combo: " + Scores.getCombo());
-	static JLabel FMAccuracy = new JLabel ("Your accuracy: " + Scores.getAccuracy());
-	static JLabel FMScore = new JLabel ("Your score was: " + Scores.getScore());
+	static JLabel FMCombo = new JLabel ("Your highest combo: " + combo);
+	static JLabel FMAccuracy = new JLabel ("Your accuracy: " + accuracy);
+	static JLabel FMScore = new JLabel ("Your score was: " + score);
 
 	static JButton Confirm = new JButton ("Return to home screen!");
 	static JButton Replay = new JButton ("Play Again!");
@@ -29,7 +36,6 @@ public class FunMode extends Alphabet {
 		FMFrame.add(FMPrompt, BorderLayout.CENTER);
 		FMFrame.setVisible(true);
 		randomizealphabet();
-		Scores.setDifficulty("Fun Mode");
 	}
 
 	public void setUp() {
@@ -61,7 +67,6 @@ public class FunMode extends Alphabet {
 		setAnswers(); //setting buttons to have actionlisteners
 		Alphabet.reverseAlphabet(); 
 		Alphabet.RandomInt();
-		Scores.setDifficulty("Matching Mode");
 	}
 
     public void randomizealphabet() {
@@ -94,7 +99,7 @@ public class FunMode extends Alphabet {
 		if (j != answer[answerindex]) {
 			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerS.get(answerindex).toUpperCase() + "!"); //prompt to correct error
 			checkanswer.remove(i);
-			Scores.miss();
+			combo = 0;
 			return;
 		}
 		correct++;

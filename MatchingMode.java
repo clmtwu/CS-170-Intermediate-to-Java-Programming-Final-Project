@@ -15,15 +15,16 @@ public class MatchingMode extends Alphabet {
 	static private int highestcombo = 0;
 	static private double accuracy = 0;
 	static private double score = 0;
-	static private String difficulty = "";
+	static private String difficulty = "Matching Mode";
+	
 
 	static private int correct = 0;
 
 	private static JLabel MMPrompt = new JLabel ("Arrange the Alphabet in order!", SwingConstants.CENTER);
 
-	static JLabel MMCombo = new JLabel ("Your highest combo: " + Scores.getCombo());
-	static JLabel MMAccuracy = new JLabel ("Your accuracy: " + Scores.getAccuracy());
-	static JLabel MMScore = new JLabel ("Your score was: " + Scores.getScore());
+	static JLabel MMCombo = new JLabel ("Your highest combo: " + combo);
+	static JLabel MMAccuracy = new JLabel ("Your accuracy: " + accuracy);
+	static JLabel MMScore = new JLabel ("Your score was: " + score);
 
 	static JButton Confirm = new JButton ("Return to home screen!");
 	static JButton Replay = new JButton ("Play Again!");
@@ -33,7 +34,6 @@ public class MatchingMode extends Alphabet {
 		MMFrame.add(MMPrompt, BorderLayout.CENTER);
 		MMFrame.setVisible(true);
 		randomizealphabet();
-		Scores.setDifficulty("Matching Mode");
 	}
 
 	public void setUp() {
@@ -65,7 +65,6 @@ public class MatchingMode extends Alphabet {
 		setAnswers();
 		Alphabet.setUpAlphabet();
 		Alphabet.RandomInt();
-		Scores.setDifficulty("Matching Mode");
 	}
 
     public void randomizealphabet() {
@@ -81,7 +80,7 @@ public class MatchingMode extends Alphabet {
 		if (j != answer[answerindex]) {
 			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerS.get(answerindex).toUpperCase() + "!"); //prompt to correct error
 			checkanswer.remove(i);
-			Scores.miss();
+			combo = 0;
 			return;
 		}
 		correct++;
