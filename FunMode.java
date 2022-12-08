@@ -17,7 +17,6 @@ public class FunMode extends Alphabet {
 	static final private int alphabetsize = 26;
     static private int answerindex = 0;
     
-
 	private static JLabel FMPrompt = new JLabel ("Arrange the Alphabet... but Backwards!", SwingConstants.CENTER);
 
 	static JLabel FMScore = new JLabel ("Your score was: " + correct);
@@ -30,7 +29,11 @@ public class FunMode extends Alphabet {
 		setUp();
 		FMFrame.add(FMPrompt, BorderLayout.CENTER);
 		FMFrame.setVisible(true);
-		GameplayWindow();
+		AlphabetPrint.setLayout(new GridLayout(alphabet.size(), 1));
+		for (int i = 0; i < alphabetsize; i++) {
+			AlphabetPrint.add(alphabet.get(reference[i]));
+		}
+        AlphabetPrint.setVisible(true);
 	}
 
 	public void setUp() {
@@ -64,33 +67,10 @@ public class FunMode extends Alphabet {
 		Alphabet.RandomInt();
 	}
 
-    public void GameplayWindow() {
-		AlphabetPrint.setLayout(new GridLayout(alphabet.size(), 1));
-		for (int i = 0; i < alphabetsize; i++) {
-			AlphabetPrint.add(alphabet.get(reference[i]));
-		}
-        AlphabetPrint.setVisible(true);
-	}
-
-	public static void clear() {
-		AlphabetPrint.setVisible(false); //you can't see me!
-		AlphabetPrint.dispose(); //Destroy the JFrame object
-		FMFrame.setVisible(false); //you can't see me!
-		FMFrame.dispose(); //Destroy the JFrame object
-		displayresults();
-	}
-
-	public static void displayresults() {
-		ResultFrame.add(FMScore);
-		ResultFrame.add(Confirm);
-		ResultFrame.add(Replay);
-		ResultFrame.setVisible(true);
-	}
-
     public static void check (JButton i, int j) {
 		checkanswer.add(i);
 		if (j != answer[answerindex]) {
-			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerS.get(answerindex).toUpperCase() + "!"); //prompt to correct error
+			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerSR.get(answerindex).toUpperCase() + "!"); //prompt to correct error
 			checkanswer.remove(i);
 			return;
 		}
@@ -99,8 +79,18 @@ public class FunMode extends Alphabet {
 		answerindex++;
 		if (answerindex == 26) {
 			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
-            clear();
-			return;
+            AlphabetPrint.setVisible(false); //you can't see me!
+            AlphabetPrint.dispose(); //Destroy the JFrame object
+            FMFrame.setVisible(false); //you can't see me!
+            FMFrame.dispose(); //Destroy the JFrame object
+            ResultFrame.add(FMScore);
+            ResultFrame.add(Confirm);
+            ResultFrame.add(Replay);
+            ResultFrame.setVisible(true);
+            new Scores(name, difficulty, correct);
+            ResultFrame.setVisible(false); //you can't see me!
+			ResultFrame.dispose(); //Destroy the JFrame object
+			new Frame();
 		}
     }
 

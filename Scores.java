@@ -5,13 +5,21 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import javax.swing.*;
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Scores extends Alphabet {
 	private double score = 0;
 	private String name = "";
 	private String difficulty = "";
 
-	static  ArrayList<Scores> ScoreboardArray = new ArrayList<Scores>();
+	static ArrayList<Scores> ScoreboardArray = new ArrayList<Scores>();
+
+	static JFrame Leaderboard = new JFrame();
 
     public Scores(String name, String difficulty, int score) {
 		this.difficulty = difficulty;

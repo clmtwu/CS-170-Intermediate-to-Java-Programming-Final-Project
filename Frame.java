@@ -2,7 +2,6 @@
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.event.*; //importing awt for customization
-import java.io.File;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;

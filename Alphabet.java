@@ -4,13 +4,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.awt.FlowLayout;
-
 import java.awt.Dimension;
 import javax.swing.border.EmptyBorder;
 
-
-public class Alphabet {
-    static JButton A = new JButton("A");
+public class Alphabet { 
+    static JButton A = new JButton("A"); //hardcoding buttons because program needs to access them to manipulate
     static JButton B = new JButton("B");
     static JButton C = new JButton("C");
     static JButton D = new JButton("D");
@@ -37,17 +35,21 @@ public class Alphabet {
     static JButton Y = new JButton("Y");
     static JButton Z = new JButton("Z");
 
-    final static int alphabetsize = 26;
-    final static int titlefont = 25;
-    final static int bodyfont = 15;
+    final static int alphabetsize = 26; //size of alphabet
+    final static int titlefont = 25; //size of title
+    final static int bodyfont = 15; //size of body
 
     static ArrayList<String> answerS = new ArrayList<String>(Arrays.asList("a", "b ", "c", "d", "e", "f", "g", "h", "i", "j",
-            "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+        "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+        //string version that is idential with button names
+    static ArrayList<String> answerSR = new ArrayList<String>(Arrays.asList("z", "y", "x", "w", "v", "u", "t", "s", "r", "q",
+        "p", "o", "n", "m", "l", "k", "j", "i", "h", "g", "f", "e", "d", "c", "b", "a"));
+        //above but in reversed order for fun mode
 
-	static Integer[] reference = new Integer[alphabetsize];
-    static Integer[] answer = new Integer[alphabetsize + 1];
+	static Integer[] reference = new Integer[alphabetsize]; //for random number
+    static Integer[] answer = new Integer[alphabetsize + 1]; //
 
-    static ArrayList<JButton> checkanswer = new ArrayList<JButton>(alphabetsize);
+    static ArrayList<JButton> checkanswer = new ArrayList<JButton>(alphabetsize); //temporary button object
 	static ArrayList<JButton> alphabet = new ArrayList<JButton>(alphabetsize);
 
 	FlowLayout FrameLayout = new FlowLayout(FlowLayout.CENTER);
@@ -140,8 +142,10 @@ public class Alphabet {
     }
 
     public static void ReversedInt() {
-        for (int i = reference.length - 1; i >= 0; i--) {
-            answer[i] = i;
+        int tempcounter = 0;
+        for (int i = 25; i >= 1; i--) {
+            answer[tempcounter] = i;
+            tempcounter++;
         }
     }
 }

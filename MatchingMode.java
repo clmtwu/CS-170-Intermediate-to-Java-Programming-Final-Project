@@ -10,30 +10,30 @@ public class MatchingMode extends Alphabet {
 	static JFrame AlphabetPrint = new JFrame();
 	static JFrame ResultFrame = new JFrame();
 
-	static private int answerindex = 0;
-	static private int combo = 0;
-	static private int highestcombo = 0;
-	static private double accuracy = 0;
-	static private double score = 0;
 	static private String difficulty = "Matching Mode";
-	
-
+    static private String name = "";
 	static private int correct = 0;
+
+	static final private int alphabetsize = 26;
+    static private int answerindex = 0;
 
 	private static JLabel MMPrompt = new JLabel ("Arrange the Alphabet in order!", SwingConstants.CENTER);
 
-	static JLabel MMCombo = new JLabel ("Your highest combo: " + combo);
-	static JLabel MMAccuracy = new JLabel ("Your accuracy: " + accuracy);
-	static JLabel MMScore = new JLabel ("Your score was: " + score);
+	static JLabel MMScore = new JLabel ("Your score was: " + correct);
 
 	static JButton Confirm = new JButton ("Return to home screen!");
 	static JButton Replay = new JButton ("Play Again!");
 
 	public MatchingMode() {
+		name = JOptionPane.showInputDialog("Please enter your name! ");
 		setUp();
 		MMFrame.add(MMPrompt, BorderLayout.CENTER);
 		MMFrame.setVisible(true);
-		randomizealphabet();
+		AlphabetPrint.setLayout(new GridLayout(alphabet.size(), 1));
+		for (int i = 0; i < alphabetsize; i++) {
+			AlphabetPrint.add(alphabet.get(reference[i]));
+		}
+        AlphabetPrint.setVisible(true);
 	}
 
 	public void setUp() {
@@ -67,54 +67,32 @@ public class MatchingMode extends Alphabet {
 		Alphabet.RandomInt();
 	}
 
-    public void randomizealphabet() {
-		AlphabetPrint.setLayout(new GridLayout(alphabet.size(), 1));
-		for (int i = 0; i < alphabetsize; i++) {
-			AlphabetPrint.add(alphabet.get(reference[i]));
-		}
-        AlphabetPrint.setVisible(true);
-	}
-
 	public static void check (JButton i, int j) {
 		checkanswer.add(i);
 		if (j != answer[answerindex]) {
 			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerS.get(answerindex).toUpperCase() + "!"); //prompt to correct error
 			checkanswer.remove(i);
-			combo = 0;
 			return;
 		}
 		correct++;
-		combo++;
-		if (combo > highestcombo) {
-			highestcombo = combo;
-		}
-		System.out.println(highestcombo);
 		MatchingMode.removebutton(i);
 		answerindex++;
 		if (answerindex == 26) {
 			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
-			MatchingMode.clear();
-			return;
-
+			AlphabetPrint.setVisible(false); //you can't see me!
+			AlphabetPrint.dispose(); //Destroy the JFrame object
+			MMFrame.setVisible(false); //you can't see me!
+			MMFrame.dispose(); //Destroy the JFrame object
+			ResultFrame.add(MMScore);
+			ResultFrame.add(Confirm);
+			ResultFrame.add(Replay);
+			ResultFrame.setVisible(true);
+			new Scores(name, difficulty, correct);
+			ResultFrame.setVisible(false); //you can't see me!
+			ResultFrame.dispose(); //Destroy the JFrame object
+			new Frame();
 		}
     }
-
-	public static void clear() {
-		AlphabetPrint.setVisible(false); //you can't see me!
-		AlphabetPrint.dispose(); //Destroy the JFrame object
-		MMFrame.setVisible(false); //you can't see me!
-		MMFrame.dispose(); //Destroy the JFrame object
-		displayresults();
-	}
-
-	public static void displayresults() {
-		ResultFrame.add(MMCombo);
-		ResultFrame.add(MMAccuracy);
-		ResultFrame.add(MMScore);
-		ResultFrame.add(Confirm);
-		ResultFrame.add(Replay);
-		ResultFrame.setVisible(true);
-	}
 
 	public static void removebutton(JButton i) {
 		AlphabetPrint.remove(i);
