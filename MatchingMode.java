@@ -5,47 +5,56 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
 public class MatchingMode extends Alphabet {
 
     JFrame MMFrame = new JFrame();
+	JFrame AlphabetPrint = new JFrame();
 
-    Random random = new Random();
+	JLabel MMPrompt = new JLabel ("Arrange the Alphabet in order!", SwingConstants.CENTER);
 
-    final static int alphabetsize = 26;
-    final static int titlefont = 25;
-    final static int bodyfont = 15;
+	public void setUp() {
+		MMFrame.setSize(400, 150); 
+        MMFrame.setTitle("Matching Mode - Control Panel!");
+        MMFrame.setLayout(LMFrameLayout);
+        MMFrame.setResizable(false);
+        MMFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
 
-	ArrayList<Integer> parent = new ArrayList<Integer>(alphabetsize);
-	ArrayList<JButton> alphabet = new ArrayList<JButton>(alphabetsize);
+		AlphabetPrint.setSize(500, 1000); 
+        AlphabetPrint.setTitle("Matching Mode - Match!");
+        AlphabetPrint.setResizable(false);
+        AlphabetPrint.setLocationRelativeTo(null);
+        AlphabetPrint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
 
-	FlowLayout FrameLayout = new FlowLayout(FlowLayout.CENTER);
-    FlowLayout LMFrameLayout = new FlowLayout(FlowLayout.CENTER); 
+		MMPrompt.setBorder(TitleBorder);
 
-    Dimension JButtonSize = new Dimension (200, 100);
-    Dimension LongJButtonSize = new Dimension (250, 100);
-    Dimension MainPicture = new Dimension (300, 300);
+		Alphabet.setUpAlphabet();
+		Alphabet.setAnswers();
+		Alphabet.RandomInt();
+	}
 
-    EmptyBorder TitleBorder = new EmptyBorder (50, 300, 50, 300);
-    EmptyBorder RegularTextBorder = new EmptyBorder (15, 200, 15, 200);
+	public MatchingMode() {
+		setUp();
+		MMFrame.add(MMPrompt, BorderLayout.CENTER);
+		MMFrame.setVisible(true);
+		randomizealphabet();
+	}
 
     public void randomizealphabet() {
-        MMFrame.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 25)); 
-		while (parent.size() > 0) {
-			int index = random.nextInt(parent.size());
-			MMFrame.add(alphabet.get(index));
-			parent.remove(index);
-		}
-		if (parent.size() == 0) {
-			initializeParent();
-		}
-	}
-
-    public void initializeParent() {
+		AlphabetPrint.setLayout(new GridLayout(alphabet.size(), 1));
 		for (int i = 0; i < alphabetsize; i++) {
-			parent.add(i);
+			AlphabetPrint.add(alphabet.get(reference[i]));
 		}
+        AlphabetPrint.setVisible(true);
 	}
 
-    
-    
+	public void removebutton(JButton i) {
+		AlphabetPrint.remove(i);
+	}
+
+	public static void main(String[] args) {
+		new MatchingMode();
+	}
 }

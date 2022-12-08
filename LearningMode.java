@@ -16,7 +16,6 @@ public class LearningMode extends Alphabet {
     JLabel LMPrompt = new JLabel ("Here is the alphabet in order!", SwingConstants.CENTER);
 
     public void setup() {
-        Alphabet.setUpAlphabet();
         LMFrame.setSize(300, 300); 
         LMFrame.setTitle("Learning Mode - Control Panel!");
         LMFrame.setLayout(LMFrameLayout);

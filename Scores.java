@@ -1,13 +1,15 @@
 import java.util.ArrayList;
 
-public class Scores {
-    private int combo = 0;
-	private int highestcombo = 0;
-	private double accuracy = 0;
-	private double score = 0;
-	private String difficulty = "";
+import javax.swing.JButton;
 
-	private int correct = 0;
+public class Scores extends Alphabet {
+    static private int combo = 0;
+	static private int highestcombo = 0;
+	static private double accuracy = 0;
+	static private double score = 0;
+	static private String difficulty = "";
+
+	static private int correct = 0;
 	final private int alphabetsize = 26;
 
 	final private double accuracy_portion = 0.3;
@@ -20,16 +22,26 @@ public class Scores {
 	}
 
     public Scores(String difficulty, double accuracy, double score, int highestcombo) {
-		this.difficulty = difficulty;
-		this.accuracy = accuracy;
-		this.score = score;
+		Scores.difficulty = difficulty;
+		Scores.accuracy = accuracy;
+		Scores.score = score;
 		combo = highestcombo;
 		ScoreboardArray.add(this);
 	}
 
-
-    public void add() {
-	}
+	public static void check (JButton i, int j) {
+        checkanswer.add(i);
+        if (checkanswer.size() == 0) {
+            if (i == A) {
+				addCorrect();
+            }
+        }
+		if (i != alphabet.get(j)) {
+			checkanswer.clear();
+		}
+        
+        
+    }
 
     public int getCombo() {
 		return combo;
@@ -48,10 +60,10 @@ public class Scores {
 	}
 
 	public void setDifficulty(String difficulty) {
-		this.difficulty = difficulty;
+		Scores.difficulty = difficulty;
 	}
 
-	public void addCorrect() {
+	public static void addCorrect() {
 		correct++;
 		combo++;
 	}
