@@ -132,8 +132,16 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new MatchingMode();
-        
-        }});
+                
+                try {
+					sound.main(null);
+				} catch (LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                
+            }
+        });
         EXIT.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
             public void actionPerformed(ActionEvent e){ //method of execution
                 System.exit(0);        
@@ -161,5 +169,3 @@ public class Frame extends JFrame implements ActionListener {
 		}
     }
 }
-
-    
