@@ -17,6 +17,8 @@ public class Scores extends Alphabet {
 	private String name = "";
 	private String difficulty = "";
 
+    int counter = 0;
+
 	static ArrayList<Scores> ScoreboardArray = new ArrayList<Scores>();
 
 	static JFrame Leaderboard = new JFrame();
@@ -27,6 +29,34 @@ public class Scores extends Alphabet {
 		this.score = score;
 		ScoreboardArray.add(this);
 	}
+
+    public double getScores() {
+        return score;
+    }
+
+    public double arrayScores(int index) {
+        return ScoreboardArray.get(index).getScores();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String arrayName(int index) {
+        return ScoreboardArray.get(index).getName();
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public String arrayDifficulty(int index) {
+        return ScoreboardArray.get(index).getDifficulty();
+    }
+
+    public String toString(int index) {
+        return ScoreboardArray.get(index).getName() + " " + ScoreboardArray.get(index).getDifficulty() + " " +  ScoreboardArray.get(index).getScores();
+    }
 
 	public void writeScoreboard() throws IOException {
         String ScoreS = "" + score;
