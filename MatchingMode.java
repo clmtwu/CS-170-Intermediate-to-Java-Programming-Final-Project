@@ -4,10 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 public class MatchingMode extends Alphabet {
-
     static JFrame MMFrame = new JFrame();
 	static JFrame AlphabetPrint = new JFrame();
 	static JFrame ResultFrame = new JFrame();
+
+	private static 
 
 	JLabel MMPrompt = new JLabel ("Arrange the Alphabet in order!", SwingConstants.CENTER);
 
@@ -34,7 +35,7 @@ public class MatchingMode extends Alphabet {
         MMFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
 
 		ResultFrame.setSize(400, 400); 
-        ResultFrame.setTitle("Matching Mode - Control Panel!");
+        ResultFrame.setTitle("Matching Mode - Results!");
         ResultFrame.setLayout(LMFrameLayout);
         ResultFrame.setResizable(false);
 		ResultFrame.setLocationRelativeTo(null);

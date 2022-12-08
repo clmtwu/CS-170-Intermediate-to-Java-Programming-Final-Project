@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -12,6 +11,7 @@ public class Scores extends Alphabet {
 
 	static private int correct = 0;
 	static private int answerindex = 0;
+	static private int reverseAI = 26;
 	static final private int alphabetsize = 26;
 
 	final private double accuracy_portion = 0.3;
@@ -52,6 +52,32 @@ public class Scores extends Alphabet {
 			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
 			MatchingMode.clear();
 			return;
+
+		}
+    }
+
+	public static void reversecheck (JButton i, int j) {
+		checkanswer.add(i);
+		if (j != answer[reverseAI]) {
+			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerS.get(answerindex).toUpperCase() + "!"); //prompt to correct error
+			checkanswer.remove(i);
+			miss();
+			return;
+		}
+		correct++;
+		combo++;
+		if (combo > highestcombo) {
+			highestcombo = combo;
+		}
+		System.out.println(highestcombo);
+		MatchingMode.removebutton(i);
+		reverseAI--;
+		System.out.println(combo);
+		if (answerindex == 26) {
+			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
+			MatchingMode.clear();
+			return;
+
 		}
     }
 

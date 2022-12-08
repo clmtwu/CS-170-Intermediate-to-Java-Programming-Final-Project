@@ -34,10 +34,7 @@ public class Scoreboard {
         writer.flush(); //???
         writer.close();
     }
-    /**
-     * 
-     * 
-     */
+
     public void addData(int difficulty, double score, int combo, double accuracy) throws IOException {
         String ScoreS = "" + score;
         String ComboS = "" + combo;

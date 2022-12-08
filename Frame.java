@@ -1,14 +1,9 @@
-
-import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.event.*; //importing awt for customization
-import java.io.File;
-import java.io.IOException;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -61,7 +56,6 @@ public class Frame extends JFrame implements ActionListener {
 		try {
 			sound.RunMusic("sound\\MenuMusic.wav");
 		} catch (LineUnavailableException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	
@@ -94,7 +88,7 @@ public class Frame extends JFrame implements ActionListener {
         for (int i = 0; i < alphabetsize; i++) { //initializing reference array before program begins running
 			parent.add(i);
 		}
-    }
+    } 
 
 	public void FramePrompt() {
 		Frame.add(FP1, BorderLayout.CENTER);
@@ -115,7 +109,6 @@ public class Frame extends JFrame implements ActionListener {
                 try {
     				sound.RunMusic("sound\\Recording.wav");
     			} catch (LineUnavailableException e1) {
-    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
             }
@@ -130,7 +123,6 @@ public class Frame extends JFrame implements ActionListener {
                 	
     				sound.RunMusic("sound\\FunModeMusic.wav");
     			} catch (LineUnavailableException e1) {
-    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
             }
@@ -140,10 +132,8 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.setVisible(false); //you can't see me!
                 Frame.dispose(); //Destroy the JFrame object
                 new MatchingMode();
-                
-                try {       
-            }
-        });
+        
+        }});
         EXIT.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
             public void actionPerformed(ActionEvent e){ //method of execution
                 System.exit(0);        
@@ -158,7 +148,6 @@ public class Frame extends JFrame implements ActionListener {
                 try {
     				sound.RunMusic("sound\\LeaderboardMusic.wav");
     			} catch (LineUnavailableException e1) {
-    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
             }
@@ -172,3 +161,5 @@ public class Frame extends JFrame implements ActionListener {
 		}
     }
 }
+
+    

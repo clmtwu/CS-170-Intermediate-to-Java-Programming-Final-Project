@@ -91,6 +91,42 @@ public class Alphabet {
         alphabet.add(Z);
     }
 
+    public void clearAlphabet() {
+        alphabet.clear();
+        checkanswer.clear();
+        Arrays.fill(answer, null);
+        Arrays.fill(reference, null);
+    }
+
+    public static void reverseAlphabet() {
+        alphabet.add(Z);
+        alphabet.add(Y);
+        alphabet.add(X);
+        alphabet.add(W);
+        alphabet.add(V);
+        alphabet.add(U);
+        alphabet.add(T);
+        alphabet.add(S);
+        alphabet.add(R);
+        alphabet.add(Q);
+        alphabet.add(P);
+        alphabet.add(O);
+        alphabet.add(N);
+        alphabet.add(M);
+        alphabet.add(L);
+        alphabet.add(K);
+        alphabet.add(J);
+        alphabet.add(I);
+        alphabet.add(H);
+        alphabet.add(G);
+        alphabet.add(F);
+        alphabet.add(E);
+        alphabet.add(D);
+        alphabet.add(C);
+        alphabet.add(B);
+        alphabet.add(A);
+    }
+
     public static void RandomInt() {
         for (int i = 0; i < reference.length; i++) {
             reference[i] = i;
@@ -100,6 +136,12 @@ public class Alphabet {
 
     public static void OrderedInt() {
         for (int i = 0; i < reference.length; i++) {
+            answer[i] = i;
+        }
+    }
+
+    public static void ReversedInt() {
+        for (int i = reference.length - 1; i >= 0; i--) {
             answer[i] = i;
         }
     }
