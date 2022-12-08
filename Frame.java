@@ -136,7 +136,6 @@ public class Frame extends JFrame implements ActionListener {
                 try {
 					sound.main(null);
 				} catch (LineUnavailableException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
                 
