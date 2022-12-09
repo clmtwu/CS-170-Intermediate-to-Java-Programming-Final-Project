@@ -1,11 +1,16 @@
+package stuff;
+
 import javax.swing.*;
-import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.awt.Color;
 
 public class MatchingMode extends Alphabet {
+	//fields
     static JFrame MMFrame = new JFrame();
 	static JFrame AlphabetPrint = new JFrame();
 	static JFrame ResultFrame = new JFrame();
@@ -16,36 +21,43 @@ public class MatchingMode extends Alphabet {
 
 	static final private int alphabetsize = 26;
     static private int answerindex = 0;
+    //end of fields
+	private static JLabel MMPrompt = new JLabel ("Arrange the Alphabet in order!", SwingConstants.CENTER);//Jlabel promt
+	JButton MMConfirm = new JButton ("Return to Menu");//button to return to menu
 
-	private static JLabel MMPrompt = new JLabel ("Arrange the Alphabet in order!", SwingConstants.CENTER);
-
-	static JLabel MMScore = new JLabel ("Your score was: " + correct);
+	static JLabel MMScore = new JLabel ("Your score was: " + correct); 
 
 	static JButton Confirm = new JButton ("Return to home screen!");
 	static JButton Replay = new JButton ("Play Again!");
+	private final JLabel lblNewLabel = new JLabel("");
 
-	public MatchingMode() {
+	public MatchingMode() {//start of MatchingMode method
 		name = JOptionPane.showInputDialog("Please enter your name! ");
 		setUp();
-		MMFrame.add(MMPrompt, BorderLayout.CENTER);
+		MMPrompt.setForeground(Color.GREEN);//sets text color
+		MMFrame.getContentPane().add(MMPrompt, BorderLayout.CENTER);
+		lblNewLabel.setIcon(new ImageIcon(MatchingMode.class.getResource("/images/Questionmark.jpeg")));//sets a image 
+		
+		MMFrame.getContentPane().add(lblNewLabel, BorderLayout.NORTH);
+		MMFrame.getContentPane().setBackground(Color.BLUE); //sets background color
 		MMFrame.setVisible(true);
-		AlphabetPrint.setLayout(new GridLayout(alphabet.size(), 1));
-		for (int i = 0; i < alphabetsize; i++) {
-			AlphabetPrint.add(alphabet.get(reference[i]));
-		}
+		AlphabetPrint.getContentPane().setLayout(new GridLayout(alphabet.size(), 1));//sets up the alphabet in terms of the Arraylist
+		for (int i = 0; i < alphabetsize; i++) {//loops to display the araylist
+			AlphabetPrint.getContentPane().add(alphabet.get(reference[i]));
+		}//end of loop
         AlphabetPrint.setVisible(true);
-	}
+	}//end of MatchingMode method
 
-	public void setUp() {
-		MMFrame.setSize(400, 150); 
+	public void setUp() {//start of setUp method
+		MMFrame.setSize(400, 600); 
         MMFrame.setTitle("Matching Mode - Control Panel!");
-        MMFrame.setLayout(LMFrameLayout);
+        MMFrame.getContentPane().setLayout(LMFrameLayout);
         MMFrame.setResizable(false);
         MMFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
 
 		ResultFrame.setSize(400, 400); 
         ResultFrame.setTitle("Matching Mode - Results!");
-        ResultFrame.setLayout(LMFrameLayout);
+        ResultFrame.getContentPane().setLayout(LMFrameLayout);
         ResultFrame.setResizable(false);
 		ResultFrame.setLocationRelativeTo(null);
         ResultFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
@@ -58,16 +70,32 @@ public class MatchingMode extends Alphabet {
 
 		Confirm.setPreferredSize(StandardJButtonSize);
 		Replay.setPreferredSize(StandardJButtonSize);
-
+		MMConfirm.setForeground(Color.GREEN); //sets text color
+		
+		MMConfirm.setPreferredSize(StandardJButtonSize);
 		MMPrompt.setBorder(TitleBorder);
 
 		Alphabet.OrderedInt();
 		setAnswers();
 		Alphabet.setUpAlphabet();
 		Alphabet.RandomInt();
-	}
-
-	public static void check (JButton i, int j) {
+		MMFrame.getContentPane().add(MMConfirm);
+		 MMConfirm.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
+	            public void actionPerformed(ActionEvent e){ //method of execution
+	                AlphabetPrint.setVisible(false);
+	                AlphabetPrint.dispose();
+	                MMFrame.setVisible(false); //you can't see me!
+	                MMFrame.dispose(); //Destroy the JFrame object
+	                Arrays.fill(reference, null);
+	                Arrays.fill(answer, null);
+	                checkanswer.clear();//clears arraylist
+	                alphabet.clear();//clears arraylist
+	                sound.stop();//stops music
+	                new Frame();//launches main menu
+	            }
+	        });
+	}//end of setUp method
+	public static void check (JButton i, int j) {//start of check method
 		checkanswer.add(i);
 		if (j != answer[answerindex]) {
 			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerS.get(answerindex).toUpperCase() + "!"); //prompt to correct error
@@ -83,16 +111,16 @@ public class MatchingMode extends Alphabet {
 			AlphabetPrint.dispose(); //Destroy the JFrame object
 			MMFrame.setVisible(false); //you can't see me!
 			MMFrame.dispose(); //Destroy the JFrame object
-			ResultFrame.add(MMScore);
-			ResultFrame.add(Confirm);
-			ResultFrame.add(Replay);
+			ResultFrame.getContentPane().add(MMScore);
+			ResultFrame.getContentPane().add(Confirm);
+			ResultFrame.getContentPane().add(Replay);
 			ResultFrame.setVisible(true);
 			new Scores(name, difficulty, correct);
 			ResultFrame.setVisible(false); //you can't see me!
 			ResultFrame.dispose(); //Destroy the JFrame object
 			new Frame();
 		}
-    }
+    }//end of check method
 
 	public static void removebutton(JButton i) {
 		AlphabetPrint.remove(i);

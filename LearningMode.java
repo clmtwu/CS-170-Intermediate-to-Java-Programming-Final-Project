@@ -8,17 +8,19 @@ import java.awt.GridLayout;
 import java.awt.BorderLayout;
 
 public class LearningMode extends Alphabet {
-    JFrame LMFrame = new JFrame();
-    JFrame AlphabetPrint = new JFrame();
+	
+    JFrame LMFrame = new JFrame();//fields
+    JFrame AlphabetPrint = new JFrame();//fields
 
-    JButton LMConfirm = new JButton ("Okay, I got it!");
+    JButton LMConfirm = new JButton ("Return to Menu");
 
     JLabel LMPrompt = new JLabel ("Here is the alphabet in order from top to bottom!", SwingConstants.CENTER);
+    private final JLabel lblNewLabel = new JLabel("");
 
     public void setup() {
-        LMFrame.setSize(300, 300); 
+        LMFrame.setSize(300, 500); 
         LMFrame.setTitle("Learning Mode - Control Panel!");
-        LMFrame.setLayout(LMFrameLayout);
+        LMFrame.getContentPane().setLayout(LMFrameLayout);//sets the layout
         LMFrame.setResizable(false);
         LMFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
 
@@ -28,21 +30,22 @@ public class LearningMode extends Alphabet {
         AlphabetPrint.setLocationRelativeTo(null);
         AlphabetPrint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
 
-        LMConfirm.setForeground(Color.GREEN);
+        LMConfirm.setForeground(Color.GREEN);//sets text color
 
         LMPrompt.setBorder(TitleBorder);
 
         LMConfirm.setPreferredSize(StandardJButtonSize);
 
-        Alphabet.setUpAlphabet();
-    }
-
+        Alphabet.setUpAlphabet();//launches the arraylist
+    }//end of setup method
     public LearningMode() {
         setup();
         LMFrame.setVisible(true);
-		LMFrame.add(LMPrompt, BorderLayout.CENTER);
-        LMFrame.add(LMConfirm);
-        //LMFrame.add(LMRepeat);
+		LMFrame.getContentPane().add(LMPrompt, BorderLayout.CENTER);
+        LMFrame.getContentPane().add(LMConfirm);
+        lblNewLabel.setIcon(new ImageIcon(LearningMode.class.getResource("/images/Learning.jpeg")));//sets up an image
+        
+        LMFrame.getContentPane().add(lblNewLabel, BorderLayout.NORTH);
         printAlphabetinOrder();
         LMConfirm.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
             public void actionPerformed(ActionEvent e){ //method of execution
@@ -52,20 +55,21 @@ public class LearningMode extends Alphabet {
                 LMFrame.dispose(); //Destroy the JFrame object
                 Arrays.fill(reference, null);
                 Arrays.fill(answer, null);
-                checkanswer.clear();
-                alphabet.clear();
-                new Frame();
+                checkanswer.clear();//clears arraylist
+                alphabet.clear();//clears arraylist
+                sound.stop();//stops current music
+                new Frame();//starts up main menu
             }
         });
     }
 
     public void printAlphabetinOrder() {
-        AlphabetPrint.setLayout(new GridLayout(alphabet.size(), 1));
-        for (int i = 0; i < alphabet.size(); i++) {
-            AlphabetPrint.add(alphabet.get(i), BorderLayout.CENTER);
+        AlphabetPrint.getContentPane().setLayout(new GridLayout(alphabet.size(), 1)); //calls the arraylist
+        for (int i = 0; i < alphabet.size(); i++) {//prints the arraylist out in order
+            AlphabetPrint.getContentPane().add(alphabet.get(i), BorderLayout.CENTER);
         }
         AlphabetPrint.setVisible(true);
-    }
+    }//end of printAlphabetOrder.
 
     public static void main(String[] args) {
         new LearningMode();
