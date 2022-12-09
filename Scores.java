@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,7 +20,7 @@ public class Scores extends Alphabet {
 	private String difficulty = "";
 
 	static ArrayList<Scores> ScoreboardArray = new ArrayList<Scores>();
-    static ArrayList<Scores> TopFive = new ArrayList<Scores>(5);
+    ArrayList<Scores> TopFive = new ArrayList<Scores>(5);
 
 	JFrame Leaderboard = new JFrame();
     JFrame SaveFile = new JFrame();
@@ -83,6 +84,10 @@ public class Scores extends Alphabet {
         return ScoreboardArray.get(index).getName() + " " + ScoreboardArray.get(index).getDifficulty() + " " +  ScoreboardArray.get(index).getScores() + " ";
     }
 
+    public Scores returnthouscore(int index) {
+        return ScoreboardArray.get(index);
+    }
+
     public void setUp() {
         Leaderboard.setSize(800, 800);
         Leaderboard.setTitle("Leaderboard");
@@ -136,22 +141,22 @@ public class Scores extends Alphabet {
     }
 
     public void compare() throws IOException { //comparing original arraylist for the highest scores, NOT importing anything
-        ArrayList<Integer> temporary = new ArrayList<Integer>();
+        Integer [] temporary = new Integer [6];
         for (int i = 0; i < ScoreboardArray.size(); i++) {
-            temporary.add(ScoreboardArray.get(i).getScores());
-        }
-        Collections.sort(temporary, Collections.reverseOrder());
+            temporary[i] = ScoreboardArray.get(i).getScores();
+            
+        } 
+        Arrays.sort(temporary); //works
+        Collections.reverse(Arrays.asList(temporary)); //works
 
         for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++ ) {
-                if (((ScoreboardArray.get(j)).getScores()) == temporary.get(i)) {
-                    TopFive.add(ScoreboardArray.get(j)); //iteratively setting newcollection's objects in accordance to collection, but this time in order
+            for (int j = 0; j < ScoreboardArray.size(); j++) {
+                if (temporary[i] == ScoreboardArray.get(j).getScores()) {
+                    TopFive.add(ScoreboardArray.get(i));
                 }
             }
         }
-        TopFive.subList(0, 4);
-        ArrayList<Scores> truncate = new ArrayList<Scores>(TopFive);
-        writeScoreboard(truncate);
+        writeScoreboard(TopFive);
     }
 
 	public void writeScoreboard() throws IOException {
@@ -208,10 +213,6 @@ public class Scores extends Alphabet {
             File Scoreboard = new File ("Scoreboard.txt");
             Scanner ScoreboardReader = new Scanner (Scoreboard);
             while (ScoreboardReader.hasNextLine()) {
-                if (ScoreboardArray.size() > 5) {
-                    System.out.println("too many files");
-                    break;
-                }
                 String NameInput = ScoreboardReader.next();
                 String ScoreInput = ScoreboardReader.next();
                 String DifficultyInput = ScoreboardReader.next();
