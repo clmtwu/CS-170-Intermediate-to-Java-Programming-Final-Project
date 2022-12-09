@@ -19,10 +19,11 @@ public class Scores extends Alphabet {
 	private String difficulty = "";
 
 	static ArrayList<Scores> ScoreboardArray = new ArrayList<Scores>();
-    ArrayList<Scores> TopFive = new ArrayList<Scores>(5);
+    static ArrayList<Scores> TopFive = new ArrayList<Scores>(5);
 
 	JFrame Leaderboard = new JFrame();
     JFrame SaveFile = new JFrame();
+    JFrame Results = new JFrame();
 
     JLabel Title = new JLabel("Leaderboard:");
 
@@ -94,6 +95,12 @@ public class Scores extends Alphabet {
         SaveFile.setLayout(FrameLayout);
         SaveFile.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
         SaveFile.setVisible(false);
+
+        Results.setSize(800, 800);
+        Results.setTitle("Results");
+        Results.setLayout(FrameLayout);
+        Results.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
+        Results.setVisible(false);
         
         New.setPreferredSize(JButtonSize);
         Existing.setPreferredSize(JButtonSize);
@@ -119,41 +126,8 @@ public class Scores extends Alphabet {
                     }
                     else {
                         JOptionPane.showMessageDialog(null, "You have more than five scores! Saving only the top five scores...");
-                        prompt();
+                        compare();
                     }
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public void prompt() throws IOException {
-        SaveFile.add(Append);
-        SaveFile.add(Keep);
-        SaveFile.setVisible(true);
-        Append.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    if (ScoreboardArray.size() <= 5) {
-                        writeScoreboard();
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "You have more than five scores! Saving only the top five scores...");
-                        Leaderboard.setVisible(false);
-                        Leaderboard.dispose();
-                        prompt();
-                    }
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
-
-        Keep.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    writeScoreboard();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -166,15 +140,18 @@ public class Scores extends Alphabet {
         for (int i = 0; i < ScoreboardArray.size(); i++) {
             temporary.add(ScoreboardArray.get(i).getScores());
         }
-        Collections.sort(temporary);
-        for (int i = 0; i < ScoreboardArray.size(); i++) {
-            for (int j = 0; j < ScoreboardArray.size(); j++ ) {
+        Collections.sort(temporary, Collections.reverseOrder());
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++ ) {
                 if (((ScoreboardArray.get(j)).getScores()) == temporary.get(i)) {
                     TopFive.add(ScoreboardArray.get(j)); //iteratively setting newcollection's objects in accordance to collection, but this time in order
                 }
             }
         }
-        writeScoreboard(TopFive);
+        TopFive.subList(0, 4);
+        ArrayList<Scores> truncate = new ArrayList<Scores>(TopFive);
+        writeScoreboard(truncate);
     }
 
 	public void writeScoreboard() throws IOException {
@@ -199,12 +176,22 @@ public class Scores extends Alphabet {
 
     public void addScores() {
         for (int i = 0; i < ScoreboardArray.size(); i++) {
-            Leaderboard.add(new JLabel (ScoreboardArray.get(i).getName()));
-            Leaderboard.add(new JLabel (ScoreboardArray.get(i).getDifficulty()));
-            Leaderboard.add(new JLabel ("" + ScoreboardArray.get(i).getScores()));
+            Results.add(new JLabel (ScoreboardArray.get(i).getName()));
+            Results.add(new JLabel (ScoreboardArray.get(i).getDifficulty()));
+            Results.add(new JLabel ("" + ScoreboardArray.get(i).getScores()));
         }
-        Leaderboard.add(Confirm);
-        Leaderboard.setVisible(true);
+        Results.add(Confirm);
+        Results.setVisible(true);
+    }
+
+    public void addScores(ArrayList<Scores> arr) {
+        for (int i = 0; i < arr.size(); i++) {
+            Results.add(new JLabel (arr.get(i).getName()));
+            Results.add(new JLabel (arr.get(i).getDifficulty()));
+            Results.add(new JLabel ("" + arr.get(i).getScores()));
+        }
+        Results.add(Confirm);
+        Results.setVisible(true);
     }
 
     public void addData(int count) throws IOException {
