@@ -8,38 +8,24 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class sound {
 
-	private static Clip clip;
+	private static Clip clip; //clip field
 
 	public static void RunMusic(String path) throws LineUnavailableException {
-		try {
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
+		try {//trys to get and output music
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));//gets music from path
 			clip = AudioSystem.getClip();
-			clip.open(inputStream);
-			clip.loop(0);
-			clip.start();
-		} catch (UnsupportedAudioFileException e) {
+			clip.open(inputStream);//opens the music
+			clip.loop(0);//no loop
+			clip.start();//plays music
+		} catch (UnsupportedAudioFileException e) {//catch exceptiobns
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (IOException e) {//catch exceptiobns
 			e.printStackTrace();
 		}
-	}
+	}//end of runMusic
 	
-	public static void stop() {
+	public static void stop() {//this method stops and clears the music that is being played
 		clip.stop();
 		clip.close();
-	}
-
-	public static void main (String[] args) throws LineUnavailableException {
-		File file = new File("windows10.wav");
-		try {
-			AudioInputStream input = AudioSystem.getAudioInputStream(file);
-			Clip clip = AudioSystem.getClip();
-			clip.open(input);
-			clip.start();
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-}
+	}//end of stop method
+}//end of sound class
