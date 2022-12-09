@@ -38,8 +38,6 @@ public class Scores extends Alphabet {
     JButton New = new JButton("Create a new file!");
     JButton Existing = new JButton ("I have a save file!");
     JButton Confirm = new JButton ("OK!");
-    JButton Append = new JButton ("Add new scores to old scores!");
-    JButton Keep = new JButton ("Display only old scores!");
 
     public Scores() {
         setUp();
@@ -110,8 +108,6 @@ public class Scores extends Alphabet {
         New.setPreferredSize(JButtonSize);
         Existing.setPreferredSize(JButtonSize);
         Confirm.setPreferredSize(JButtonSize);
-        Keep.setPreferredSize(JButtonSize);
-        Append.setPreferredSize(JButtonSize);
 
         Title.setBorder(TitleBorder);
 
@@ -136,6 +132,12 @@ public class Scores extends Alphabet {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+            }
+        });
+
+        Existing.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
+            public void actionPerformed(ActionEvent e) {
+                readScoreboard();
             }
         });
     }
@@ -214,13 +216,14 @@ public class Scores extends Alphabet {
             Scanner ScoreboardReader = new Scanner (Scoreboard);
             while (ScoreboardReader.hasNextLine()) {
                 String NameInput = ScoreboardReader.next();
+                String DifficultyInputWordOne = ScoreboardReader.next();
+                String DifficultyInputWordTwo = ScoreboardReader.next();
                 String ScoreInput = ScoreboardReader.next();
-                String DifficultyInput = ScoreboardReader.next();
-                try {
-                    Integer ScoreConverted = Integer.parseInt(ScoreInput);
-                    new Scores(NameInput, DifficultyInput, ScoreConverted);
-                } catch (Exception e) {
-                    System.out.println("Parse Error");
+                Integer ScoreConverted = Integer.parseInt(ScoreInput);
+                new Scores(NameInput, DifficultyInputWordOne + DifficultyInputWordTwo, ScoreConverted);
+                if (ScoreboardArray.size() == 5) {
+                    JOptionPane.showMessageDialog(null, "Loading was successful!");
+                    break;
                 }
             }
             ScoreboardReader.close();

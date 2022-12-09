@@ -1,5 +1,3 @@
-package stuff;
-
 import javax.swing.*;
 
 import java.awt.BorderLayout;
