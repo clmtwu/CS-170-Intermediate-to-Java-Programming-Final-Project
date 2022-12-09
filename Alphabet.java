@@ -47,23 +47,23 @@ public class Alphabet {
         //above but in reversed order for fun mode
 
 	static Integer[] reference = new Integer[alphabetsize]; //for random number
-    static Integer[] answer = new Integer[alphabetsize + 1]; //
+    static Integer[] answer = new Integer[alphabetsize + 1]; //for the answers
 
     static ArrayList<JButton> checkanswer = new ArrayList<JButton>(alphabetsize); //temporary button object
-	static ArrayList<JButton> alphabet = new ArrayList<JButton>(alphabetsize);
+	static ArrayList<JButton> alphabet = new ArrayList<JButton>(alphabetsize);// arraylsit where all the buttons will be stored
 
-	FlowLayout FrameLayout = new FlowLayout(FlowLayout.CENTER);
-    FlowLayout LMFrameLayout = new FlowLayout(FlowLayout.CENTER); 
+	FlowLayout FrameLayout = new FlowLayout(FlowLayout.CENTER); //new layout
+    FlowLayout LMFrameLayout = new FlowLayout(FlowLayout.CENTER); //new layout
 
-    static Dimension LongJButtonSize = new Dimension (300, 100);
-    static Dimension StandardJButtonSize = new Dimension (200, 50);
+    static Dimension LongJButtonSize = new Dimension (300, 100); //sizes for button
+    static Dimension StandardJButtonSize = new Dimension (200, 50);//sizes for button
 
-    EmptyBorder TitleBorder = new EmptyBorder (50, 300, 50, 300);
-    EmptyBorder RegularTextBorder = new EmptyBorder (15, 200, 15, 200);
+    EmptyBorder TitleBorder = new EmptyBorder (50, 300, 50, 300);//sets borders
+    EmptyBorder RegularTextBorder = new EmptyBorder (15, 200, 15, 200);//sets borders
 
     Random random = new Random();
 
-    public static void setUpAlphabet() {
+    public static void setUpAlphabet() {//this method adds all the buttons to the aklphabet arraylist
         alphabet.add(A);
         alphabet.add(B);
         alphabet.add(C);
@@ -90,16 +90,16 @@ public class Alphabet {
         alphabet.add(X);
         alphabet.add(Y);
         alphabet.add(Z);
-    }
+    }//end of setupalphabet method
 
     public void clearAlphabet() {
-        alphabet.clear();
-        checkanswer.clear();
+        alphabet.clear();//clears the arraylist
+        checkanswer.clear();//clears the arraylist
         Arrays.fill(answer, null);
         Arrays.fill(reference, null);
     }
 
-    public static void reverseAlphabet() {
+    public static void reverseAlphabet() {//this method is the same as setupalphabet but its reversed
         alphabet.add(Z);
         alphabet.add(Y);
         alphabet.add(X);
@@ -126,26 +126,26 @@ public class Alphabet {
         alphabet.add(C);
         alphabet.add(B);
         alphabet.add(A);
-    }
+    }//end of reverseAlphabet
 
-    public static void RandomInt() {
+    public static void RandomInt() {//this method randomizes the arraylist
         for (int i = 0; i < reference.length; i++) {
             reference[i] = i;
         }
         Collections.shuffle(Arrays.asList(reference));
-    }
+    }//end of RandomInt
 
-    public static void OrderedInt() {
+    public static void OrderedInt() {//this method ouputs the arraylist in order
         for (int i = 0; i < reference.length; i++) {
             answer[i] = i;
         }
-    }
+    }//end of OrderedInt
 
-    public static void ReversedInt() {
+    public static void ReversedInt() {//this method outputs the list but in reverse
         int tempcounter = 0;
         for (int i = 25; i >= 0; i--) {
             answer[tempcounter] = i;
             tempcounter++;
         }
-    }
+    }//end of ReversedInt
 }
