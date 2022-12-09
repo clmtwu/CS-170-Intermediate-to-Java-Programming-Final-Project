@@ -191,16 +191,6 @@ public class Scores extends Alphabet {
         Results.setVisible(true);
     }
 
-    public void addScores(ArrayList<Scores> arr) {
-        for (int i = 0; i < arr.size(); i++) {
-            Results.add(new JLabel (arr.get(i).getName()));
-            Results.add(new JLabel (arr.get(i).getDifficulty()));
-            Results.add(new JLabel ("" + arr.get(i).getScores()));
-        }
-        Results.add(Confirm);
-        Results.setVisible(true);
-    }
-
     public void addData(int count) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("Scoreboard.txt", true));
         for (int i = count; i < 5; i++) {
@@ -223,6 +213,7 @@ public class Scores extends Alphabet {
                 new Scores(NameInput, DifficultyInputWordOne + DifficultyInputWordTwo, ScoreConverted);
                 if (ScoreboardArray.size() == 5) {
                     JOptionPane.showMessageDialog(null, "Loading was successful!");
+                    addScores();
                     new Frame();
                     break;
                 }
