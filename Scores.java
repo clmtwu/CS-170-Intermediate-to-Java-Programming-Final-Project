@@ -223,6 +223,7 @@ public class Scores extends Alphabet {
                 new Scores(NameInput, DifficultyInputWordOne + DifficultyInputWordTwo, ScoreConverted);
                 if (ScoreboardArray.size() == 5) {
                     JOptionPane.showMessageDialog(null, "Loading was successful!");
+                    new Frame();
                     break;
                 }
             }
