@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,22 +10,19 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Scores extends Alphabet {
-	static private double score = 0;
-	static private String name = "";
-	static private String difficulty = "";
-
-    static int counter = 0;
-    static final int length = 5;
+	private int score = 0;
+	private String name = "";
+	private String difficulty = "";
 
 	static ArrayList<Scores> ScoreboardArray = new ArrayList<Scores>();
+    ArrayList<Scores> TopFive = new ArrayList<Scores>(5);
 
-	static JFrame Leaderboard = new JFrame();
+	JFrame Leaderboard = new JFrame();
+    JFrame SaveFile = new JFrame();
 
     JLabel Title = new JLabel("Leaderboard:");
 
@@ -38,19 +36,29 @@ public class Scores extends Alphabet {
     JButton New = new JButton("Create a new file!");
     JButton Existing = new JButton ("I have a save file!");
     JButton Confirm = new JButton ("OK!");
+    JButton Append = new JButton ("Add new scores to old scores!");
+    JButton Keep = new JButton ("Display only old scores!");
+
+    public Scores() {
+        setUp();
+        Leaderboard.setVisible(true);
+        Leaderboard.add(Title);
+        Leaderboard.add(New);
+        Leaderboard.add(Existing);
+    }
 
     public Scores(String name, String difficulty, int score) {
-        Scores.name = name;
-		Scores.difficulty = difficulty;
-		Scores.score = score;
+        this.name = name;
+		this.difficulty = difficulty;
+		this.score = score;
 		ScoreboardArray.add(this);
 	}
 
-    public double getScores() {
+    public int getScores() {
         return score;
     }
 
-    public double arrayScores(int index) {
+    public int arrayScores(int index) {
         return ScoreboardArray.get(index).getScores();
     }
 
@@ -70,7 +78,7 @@ public class Scores extends Alphabet {
         return ScoreboardArray.get(index).getDifficulty();
     }
 
-    public static String toString(int index) {
+    public String toString(int index) {
         return ScoreboardArray.get(index).getName() + " " + ScoreboardArray.get(index).getDifficulty() + " " +  ScoreboardArray.get(index).getScores() + " ";
     }
 
@@ -80,51 +88,140 @@ public class Scores extends Alphabet {
         Leaderboard.setLayout(FrameLayout);
         Leaderboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
         Leaderboard.setVisible(false);
+
+        SaveFile.setSize(800, 800);
+        SaveFile.setTitle("Save File");
+        SaveFile.setLayout(FrameLayout);
+        SaveFile.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
+        SaveFile.setVisible(false);
         
         New.setPreferredSize(JButtonSize);
         Existing.setPreferredSize(JButtonSize);
         Confirm.setPreferredSize(JButtonSize);
+        Keep.setPreferredSize(JButtonSize);
+        Append.setPreferredSize(JButtonSize);
 
         Title.setBorder(TitleBorder);
+
+        Confirm.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
+            public void actionPerformed(ActionEvent e) {
+                Leaderboard.setVisible(false); //you can't see me!
+                Leaderboard.dispose(); //Destroy the JFrame object
+                new Frame();
+            }
+        });
+
+        New.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (ScoreboardArray.size() <= 5) {
+                        writeScoreboard();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "You have more than five scores! Saving only the top five scores...");
+                        prompt();
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 
-	public static void writeScoreboard() throws IOException {
+    public void prompt() throws IOException {
+        SaveFile.add(Append);
+        SaveFile.add(Keep);
+        SaveFile.setVisible(true);
+        Append.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (ScoreboardArray.size() <= 5) {
+                        writeScoreboard();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "You have more than five scores! Saving only the top five scores...");
+                        Leaderboard.setVisible(false);
+                        Leaderboard.dispose();
+                        prompt();
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+        Keep.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    writeScoreboard();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void compare() throws IOException { //comparing original arraylist for the highest scores, NOT importing anything
+        ArrayList<Integer> temporary = new ArrayList<Integer>();
+        for (int i = 0; i < ScoreboardArray.size(); i++) {
+            temporary.add(ScoreboardArray.get(i).getScores());
+        }
+        Collections.sort(temporary);
+        for (int i = 0; i < ScoreboardArray.size(); i++) {
+            for (int j = 0; j < ScoreboardArray.size(); j++ ) {
+                if (((ScoreboardArray.get(j)).getScores()) == temporary.get(i)) {
+                    TopFive.add(ScoreboardArray.get(j)); //iteratively setting newcollection's objects in accordance to collection, but this time in order
+                }
+            }
+        }
+        writeScoreboard(TopFive);
+    }
+
+	public void writeScoreboard() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("Scoreboard.txt"));
         for (int i = 0; i < ScoreboardArray.size(); i++) {
-            writer.write(Scores.toString(i));
+            writer.write(ScoreboardArray.get(i).toString(i));
             writer.flush();
         }
         writer.close();
+        JOptionPane.showMessageDialog(null, "Writing was successful!");
     }
 
-    public void run() {
-        setUp();
-        Leaderboard.setVisible(true);
-        Leaderboard.add(Title);
+    public void writeScoreboard(ArrayList<Scores> newlist) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("Scoreboard.txt"));
+        for (int i = 0; i < newlist.size(); i++) {
+            writer.write(newlist.get(i).toString(i));
+            writer.flush();
+        }
+        writer.close();
+        JOptionPane.showMessageDialog(null, "Writing was successful!");
     }
 
     public void addScores() {
-
+        for (int i = 0; i < ScoreboardArray.size(); i++) {
+            Leaderboard.add(new JLabel (ScoreboardArray.get(i).getName()));
+            Leaderboard.add(new JLabel (ScoreboardArray.get(i).getDifficulty()));
+            Leaderboard.add(new JLabel ("" + ScoreboardArray.get(i).getScores()));
+        }
+        Leaderboard.add(Confirm);
+        Leaderboard.setVisible(true);
     }
 
     public void addData(int count) throws IOException {
-        if (count >= length) {
-            System.out.println("count is greater than 5");
-        }
 		BufferedWriter writer = new BufferedWriter(new FileWriter("Scoreboard.txt", true));
-        for (int i = count; i < length; i++) {
-            writer.write(Scores.toString(i));
+        for (int i = count; i < 5; i++) {
+            writer.write(ScoreboardArray.get(i).toString(i));
             writer.flush();
         }
         writer.close();
     }
 
-    public static void readScoreboard() {
+    public void readScoreboard() {
         try {
             File Scoreboard = new File ("Scoreboard.txt");
             Scanner ScoreboardReader = new Scanner (Scoreboard);
             while (ScoreboardReader.hasNextLine()) {
-                if (counter > 5) {
+                if (ScoreboardArray.size() > 5) {
                     System.out.println("too many files");
                     break;
                 }
@@ -143,12 +240,5 @@ public class Scores extends Alphabet {
         catch (FileNotFoundException e) {
             System.out.println("Could not find file! Make a new Scoreboard!");
         } 
-    }
-
-    public static void test() throws IOException {
-        new Scores("Clement", "Matching Mode", 2);
-        new Scores("Clement", "Matching Mode", 2);
-        new Scores("Clement", "Matching Mode", 2);
-        writeScoreboard();
     }
 }

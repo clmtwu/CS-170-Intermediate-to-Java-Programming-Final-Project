@@ -149,6 +149,7 @@ public class Frame extends JFrame implements ActionListener {
                 Frame.dispose(); //Destroy the JFrame object
                 try {
     				sound.RunMusic("sound\\LeaderboardMusic.wav");
+                    new Scores();
     			} catch (LineUnavailableException e1) {
     				e1.printStackTrace();
     			}
