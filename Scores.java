@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.*;
-import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -18,7 +17,8 @@ public class Scores extends Alphabet {
 	private int score = 0;
 	private String name = "";
 	private String difficulty = "";
-
+	private final JLabel lblNewLabel = new JLabel("");
+	
 	static ArrayList<Scores> ScoreboardArray = new ArrayList<Scores>();
     ArrayList<Scores> TopFive = new ArrayList<Scores>(5);
 
@@ -33,18 +33,22 @@ public class Scores extends Alphabet {
 
     Dimension JButtonSize = new Dimension (200, 100);
     Dimension LongJButtonSize = new Dimension (250, 100);
-    Dimension MainPicture = new Dimension (300, 300);
+    Dimension MainPicture = new Dimension (800, 800);
 
     JButton New = new JButton("Create a new file!");
     JButton Existing = new JButton ("I have a save file!");
     JButton Confirm = new JButton ("OK!");
-
+    JButton Append = new JButton ("Add new scores to old scores!");
+    JButton Keep = new JButton ("Display only old scores!");
+    
     public Scores() {
         setUp();
         Leaderboard.setVisible(true);
         Leaderboard.add(Title);
         Leaderboard.add(New);
         Leaderboard.add(Existing);
+        lblNewLabel.setIcon(new ImageIcon(MatchingMode.class.getResource("/images/Podium.jpg")));
+        Leaderboard.add(lblNewLabel);
     }
 
     public Scores(String name, String difficulty, int score) {
@@ -87,7 +91,7 @@ public class Scores extends Alphabet {
     }
 
     public void setUp() {
-        Leaderboard.setSize(800, 800);
+        Leaderboard.setSize(800, 900);
         Leaderboard.setTitle("Leaderboard");
         Leaderboard.setLayout(FrameLayout);
         Leaderboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
@@ -108,6 +112,8 @@ public class Scores extends Alphabet {
         New.setPreferredSize(JButtonSize);
         Existing.setPreferredSize(JButtonSize);
         Confirm.setPreferredSize(JButtonSize);
+        Keep.setPreferredSize(JButtonSize);
+        Append.setPreferredSize(JButtonSize);
 
         Title.setBorder(TitleBorder);
 
@@ -132,12 +138,6 @@ public class Scores extends Alphabet {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-            }
-        });
-
-        Existing.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
-            public void actionPerformed(ActionEvent e) {
-                readScoreboard();
             }
         });
     }
@@ -216,15 +216,13 @@ public class Scores extends Alphabet {
             Scanner ScoreboardReader = new Scanner (Scoreboard);
             while (ScoreboardReader.hasNextLine()) {
                 String NameInput = ScoreboardReader.next();
-                String DifficultyInputWordOne = ScoreboardReader.next();
-                String DifficultyInputWordTwo = ScoreboardReader.next();
                 String ScoreInput = ScoreboardReader.next();
-                Integer ScoreConverted = Integer.parseInt(ScoreInput);
-                new Scores(NameInput, DifficultyInputWordOne + DifficultyInputWordTwo, ScoreConverted);
-                if (ScoreboardArray.size() == 5) {
-                    JOptionPane.showMessageDialog(null, "Loading was successful!");
-                    new Frame();
-                    break;
+                String DifficultyInput = ScoreboardReader.next();
+                try {
+                    Integer ScoreConverted = Integer.parseInt(ScoreInput);
+                    new Scores(NameInput, DifficultyInput, ScoreConverted);
+                } catch (Exception e) {
+                    System.out.println("Parse Error");
                 }
             }
             ScoreboardReader.close();
