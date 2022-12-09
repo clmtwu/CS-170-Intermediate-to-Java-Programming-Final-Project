@@ -70,8 +70,4 @@ public class LearningMode extends Alphabet {
         }
         AlphabetPrint.setVisible(true);
     }//end of printAlphabetOrder.
-
-    public static void main(String[] args) {
-        new LearningMode();
-    }
 }
