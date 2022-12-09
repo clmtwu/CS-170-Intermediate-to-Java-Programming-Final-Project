@@ -1,12 +1,13 @@
 import javax.swing.*;
-import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.util.Arrays;
-
 public class FunMode extends Alphabet {
+	//fields
     static JFrame FMFrame = new JFrame();
 	static JFrame AlphabetPrint = new JFrame();
 	static JFrame ResultFrame = new JFrame();
@@ -17,36 +18,60 @@ public class FunMode extends Alphabet {
 
 	static final private int alphabetsize = 26;
     static private int answerindex = 0;
+    //end of fields
     
 	private static JLabel FMPrompt = new JLabel ("Arrange the Alphabet... but Backwards!", SwingConstants.CENTER);
 
 	static JLabel FMScore = new JLabel ("Your score was: " + correct);
-
+	JButton FMConfirm = new JButton ("Return to Menu");
 	static JButton Confirm = new JButton ("Return to home screen!");
 	static JButton Replay = new JButton ("Play Again!");
 
 	public FunMode() {
-        name = JOptionPane.showInputDialog("Please enter your name! ");
+        name = JOptionPane.showInputDialog("Please enter your name! ");//name prompt
 		setUp();
-		FMFrame.add(FMPrompt, BorderLayout.CENTER);
+		FMFrame.getContentPane().add(FMPrompt, BorderLayout.CENTER);//first pulls up the name prompt
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(FunMode.class.getResource("/images/Funmode.jpeg")));//sets up a picture
+		FMFrame.getContentPane().add(lblNewLabel, BorderLayout.NORTH);
+		FMFrame.getContentPane().setBackground(Color.ORANGE);//sets background color
 		FMFrame.setVisible(true);
-		AlphabetPrint.setLayout(new GridLayout(alphabet.size(), 1));
-		for (int i = 0; i < alphabetsize; i++) {
-			AlphabetPrint.add(alphabet.get(reference[i]));
-		}
+		AlphabetPrint.getContentPane().setLayout(new GridLayout(alphabet.size(), 1));
+		for (int i = 0; i < alphabetsize; i++) {	//forloop that prints out the alphabet buttons
+			AlphabetPrint.getContentPane().add(alphabet.get(reference[i]));
+		}//end of forloop
         AlphabetPrint.setVisible(true);
+        FMConfirm.setForeground(Color.GREEN); //sets text color
+        
+        FMConfirm.setPreferredSize(StandardJButtonSize);
+        FMFrame.getContentPane().add(FMConfirm);
+        FMConfirm.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
+            public void actionPerformed(ActionEvent e){ //method of execution
+                AlphabetPrint.setVisible(false);
+                AlphabetPrint.dispose();
+                FMFrame.setVisible(false); //you can't see me!
+                FMFrame.dispose(); //Destroy the JFrame object
+                Arrays.fill(reference, null);
+                Arrays.fill(answer, null);
+                checkanswer.clear();//clears arraylist
+                alphabet.clear();//clears arraylist
+                sound.stop();//stops current music
+                new Frame();//runs main menu
+            }
+        });
 	}
 
 	public void setUp() {
-		FMFrame.setSize(400, 150); 
+		FMFrame.setSize(400, 700); 
         FMFrame.setTitle("Fun Mode - Control Panel!");
-        FMFrame.setLayout(LMFrameLayout);
+        FMFrame.getContentPane().setLayout(LMFrameLayout);
         FMFrame.setResizable(false);
         FMFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
 
 		ResultFrame.setSize(400, 400); 
         ResultFrame.setTitle("Fun Mode - Results!");
-        ResultFrame.setLayout(LMFrameLayout);
+        ResultFrame.getContentPane().setLayout(LMFrameLayout);
         ResultFrame.setResizable(false);
 		ResultFrame.setLocationRelativeTo(null);
         ResultFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // default action when closed is to stop
@@ -68,40 +93,40 @@ public class FunMode extends Alphabet {
 		Alphabet.RandomInt();
 	}
 
-    public static void check (JButton i, int j) {
+    public static void check (JButton i, int j) {//this method checks the answer and gives a response
 		checkanswer.add(i);
 		if (j != answer[answerindex]) {
 			JOptionPane.showMessageDialog(null, "So Close! The right answer was " + answerSR.get(answerindex).toUpperCase() + "!"); //prompt to correct error
 			checkanswer.remove(i);
 			return;
-		}
+		}//end of check
 		correct++;
-		FunMode.removebutton(i);
+		FunMode.removebutton(i);//makes it so the same button cant be pressed again if correct
 		answerindex++;
-		if (answerindex == 26) {
+		if (answerindex == 26) {//if all 26 buttons are pressed then game ends
 			JOptionPane.showMessageDialog(null, "Congradulations! You have won!");
             AlphabetPrint.setVisible(false); //you can't see me!
             AlphabetPrint.dispose(); //Destroy the JFrame object
             FMFrame.setVisible(false); //you can't see me!
             FMFrame.dispose(); //Destroy the JFrame object
-            ResultFrame.add(FMScore);
-            ResultFrame.add(Confirm);
-            ResultFrame.add(Replay);
+            ResultFrame.getContentPane().add(FMScore);
+            ResultFrame.getContentPane().add(Confirm);
+            ResultFrame.getContentPane().add(Replay);
             ResultFrame.setVisible(true);
             new Scores(name, difficulty, correct);
             ResultFrame.setVisible(false); //you can't see me!
 			ResultFrame.dispose(); //Destroy the JFrame object
-            Arrays.fill(reference, null);
-            Arrays.fill(answer, null);
-            checkanswer.clear();
-            alphabet.clear();
+			 Arrays.fill(reference, null);
+	            Arrays.fill(answer, null);
+	            checkanswer.clear();
+	            alphabet.clear();
 			new Frame();
 		}
-    }
+    }//end of check
 
-	public static void removebutton(JButton i) {
+	public static void removebutton(JButton i) {//method removes the button from being pressed
 		AlphabetPrint.remove(i);
-	}
+	}//end of removebutton
 
     public static void setAnswers() {
         A.addActionListener((java.awt.event.ActionListener) new ActionListener() { //creating action listener for submit button
@@ -234,7 +259,7 @@ public class FunMode extends Alphabet {
                 FunMode.check(Z, 25);
             }
         });
-    }
+    }//end of setAnswers method
 
 	public static void main(String[] args) {
 		new FunMode();
